@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BoxOwl</string>
+    <string name="sign_up_text_label">Sign up with email</string>
+    <string name="sign_up_text_btn_label">Зарегистрироваться</string>
+    <string name="user_login_hint">Логин</string>
+    <string name="user_email_hint">Почта</string>
+    <string name="have_an_account_label">Уже есть аккаунт?</string>
+    <string name="password_text_edit_hint">Пароль</string>
+    <string name="confirm_password_text_edit_hint">Подтверждение пароля</string>
+    <string name="sign_in_text_label">Sign in</string>
+    <string name="sign_in_text_btn_label">Войти</string>
+    <string name="google_text_button">Google</string>
+    <string name="facebook_text_button">Facebook</string>
+    <string name="does_not_have_account_label">Ещё нет аккаунта?</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+</resources>
