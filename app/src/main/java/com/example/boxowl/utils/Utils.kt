@@ -1,4 +1,4 @@
-package com.example.boxowl.ui.extension
+package com.example.boxowl.utils
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,12 +7,31 @@ import android.widget.Toast
 import com.example.boxowl.R
 import com.google.android.material.snackbar.Snackbar
 import dmax.dialog.SpotsDialog
-
+import retrofit2.HttpException
+import java.util.regex.Pattern.compile
 
 /**
  * Created by Andrey Morgunov on 27/10/2020.
  */
- 
+
+fun showAPIErrors(error: Throwable) : String {
+    val httpException = error as? HttpException
+    return httpException?.response()?.errorBody()?.string() ?: error.stackTraceToString()
+}
+
+fun String.isEmail() : Boolean {
+    val emailRegex = compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    )
+    return emailRegex.matcher(this).matches()
+}
+
 fun loadingSpotsDialog(context: Context) : AlertDialog {
     return SpotsDialog.Builder()
             .setContext(context)
