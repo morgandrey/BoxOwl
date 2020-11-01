@@ -2,7 +2,8 @@ package com.example.boxowl.presentation.auth
 
 import com.example.boxowl.models.User
 import com.example.boxowl.remote.AuthService
-import com.example.boxowl.remote.Common
+import com.example.boxowl.remote.Service
+import com.example.boxowl.utils.showAPIErrors
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +19,7 @@ class SignInPresenter(private val view: SignInContract.View) : SignInContract.Pr
     private lateinit var authService: AuthService
 
     override fun onSignInClick(userEmail: String, userPassword: String) {
-        authService = Common.authService
+        authService = Service.authService
         val user = User(
                 UserEmail = userEmail,
                 UserPassword = userPassword
@@ -29,10 +30,10 @@ class SignInPresenter(private val view: SignInContract.View) : SignInContract.Pr
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 {
-                                    view.onSuccess(it.toString())
+                                    view.onSuccess(it)
                                 },
                                 {
-                                    view.onError(it.toString())
+                                    view.onError(showAPIErrors(it))
                                 })
         )
     }

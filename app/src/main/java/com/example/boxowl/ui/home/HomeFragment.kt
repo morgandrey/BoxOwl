@@ -10,11 +10,15 @@ import com.example.boxowl.R
 import com.example.boxowl.bases.BaseFragment
 
 
+/**
+ * Created by Andrey Morgunov on 27/10/2020.
+ */
+
 class HomeFragment : BaseFragment() {
 
     interface OnHomeFragmentInteractionListener : FragmentInteractionListener
 
-    lateinit var mListener: OnHomeFragmentInteractionListener
+    lateinit var listener: OnHomeFragmentInteractionListener
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -34,7 +38,7 @@ class HomeFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnHomeFragmentInteractionListener) {
-            mListener = context
+            listener = context
         } else {
             throw RuntimeException(requireContext().toString() + " must implement OnHomeFragmentInteractionListener")
         }
@@ -42,6 +46,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        mListener.setBottomNavigation(true,R.id.navigation_home)
+        listener.setBottomNavigation(true,R.id.navigation_home)
     }
 }

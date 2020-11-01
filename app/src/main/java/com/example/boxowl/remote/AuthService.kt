@@ -13,6 +13,6 @@ interface AuthService {
     @POST("api/register")
     fun registerUser(@Body user: User): Observable<String>
 
-    @POST("api/login")
-    fun loginUser(@Body user: User): Observable<String>
+    @POST("api/user")
+    fun loginUser(@Body user: User): Observable<User>
 }

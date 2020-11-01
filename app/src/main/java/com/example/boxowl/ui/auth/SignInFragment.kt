@@ -10,11 +10,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.boxowl.R
+import com.example.boxowl.*
 import com.example.boxowl.databinding.FragmentSignInBinding
+import com.example.boxowl.models.CurrentUser
+import com.example.boxowl.models.User
 import com.example.boxowl.presentation.auth.SignInContract
 import com.example.boxowl.presentation.auth.SignInPresenter
 import com.example.boxowl.ui.extension.*
+import com.example.boxowl.utils.*
 
 
 /**
@@ -77,9 +80,9 @@ class SignInFragment : Fragment(), SignInContract.View {
         showToast(requireContext(), error)
     }
 
-    override fun onSuccess(user: String) {
+    override fun onSuccess(user: User) {
         dismissLoadingDialog(loadingDialog)
-        showToast(requireContext(), user)
-        //requireView().findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+        CurrentUser.user = user
+        requireView().findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
     }
 }

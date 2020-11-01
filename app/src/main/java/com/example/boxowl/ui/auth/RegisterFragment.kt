@@ -1,5 +1,6 @@
 package com.example.boxowl.ui.auth
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,21 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.example.boxowl.R
+import com.example.boxowl.*
 import com.example.boxowl.presentation.auth.RegisterPresenter
 import com.example.boxowl.databinding.FragmentRegisterBinding
-import com.example.boxowl.models.User
 import com.example.boxowl.presentation.auth.RegisterContract
-import com.example.boxowl.remote.Common
-import com.example.boxowl.remote.AuthService
-import com.example.boxowl.ui.extension.hideKeyboard
-import com.example.boxowl.ui.extension.loadingSpotsDialog
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import com.example.boxowl.ui.extension.*
+import com.example.boxowl.utils.*
 
 
 /**
@@ -32,8 +26,7 @@ class RegisterFragment : Fragment(), RegisterContract.View {
 
     private lateinit var registerPresenter: RegisterPresenter
     private lateinit var binding: FragmentRegisterBinding
-    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private lateinit var authService: AuthService
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -46,63 +39,60 @@ class RegisterFragment : Fragment(), RegisterContract.View {
                 false
         )
         registerPresenter = RegisterPresenter(this)
-        authService = Common.authService
-
+        loadingDialog = loadingSpotsDialog(requireContext())
         val registerTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.registerButton.isEnabled = !binding.userEmailEditText.text.isBlank()
-                        && !binding.userLoginEditText.text.isBlank()
+                        && !binding.userFirstNameEditText.text.isBlank()
+                        && !binding.userSecondNameEditText.text.isBlank()
                         && !binding.userPasswordEditText.text.isBlank()
                         && !binding.userConfirmPasswordEditText.text.isBlank()
+                        && binding.userEmailEditText.text.toString().isEmail()
+                        && binding.userPasswordEditText.text.toString() ==
+                        binding.userConfirmPasswordEditText.text.toString()
             }
 
             override fun afterTextChanged(s: Editable?) {}
         }
-
         with(binding) {
-            haveAccountLabel.setOnClickListener { view ->
+            haveAccountLabel.onClick { view ->
                 view.hideKeyboard()
                 view.findNavController().navigate(R.id.action_registerFragment_to_signInFragment)
             }
-            userLoginEditText.addTextChangedListener(registerTextWatcher)
+            userFirstNameEditText.addTextChangedListener(registerTextWatcher)
+            userSecondNameEditText.addTextChangedListener(registerTextWatcher)
             userEmailEditText.addTextChangedListener(registerTextWatcher)
             userPasswordEditText.addTextChangedListener(registerTextWatcher)
             userConfirmPasswordEditText.addTextChangedListener(registerTextWatcher)
 
-            registerButton.setOnClickListener { view ->
-                if (binding.userPasswordEditText.text.toString() !=
-                        binding.userConfirmPasswordEditText.text.toString()) {
-                    Toast.makeText(requireContext(), "Пароли не совпадают", Toast.LENGTH_SHORT)
-                            .show()
-                    return@setOnClickListener
-                }
-                val alertDialog = loadingSpotsDialog(requireContext())
-                alertDialog.show()
-                val user = User(
-                        UserLogin = binding.userLoginEditText.text.toString(),
-                        UserEmail = binding.userEmailEditText.text.toString(),
-                        UserPassword = binding.userPasswordEditText.text.toString()
-                )
-                compositeDisposable.add(
-                        authService.registerUser(user)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(
-                                        {
-                                            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT)
-                                                    .show()
-                                            alertDialog.dismiss()
-                                            view.findNavController().navigate(R.id.action_registerFragment_to_signInFragment)
-                                        }, {
-                                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                                            .show()
-                                    alertDialog.dismiss()
-                                })
+            registerButton.onClick {
+                showLoadingDialog(loadingDialog)
+                registerPresenter.onSignUpClick(
+                        userName = userFirstNameEditText.text.toString(),
+                        userSurname = userSecondNameEditText.text.toString(),
+                        userEmail = userEmailEditText.text.toString(),
+                        userPassword = userPasswordEditText.text.toString()
                 )
             }
         }
         return binding.root
+    }
+
+    override fun onError(error: String) {
+        showToast(requireContext(), error)
+        dismissLoadingDialog(loadingDialog)
+    }
+
+    override fun onSuccess(user: String) {
+        showToast(requireContext(), user)
+        dismissLoadingDialog(loadingDialog)
+        requireView().findNavController().navigate(R.id.action_registerFragment_to_signInFragment)
+    }
+
+    override fun onDestroy() {
+        registerPresenter.onDestroy()
+        super.onDestroy()
     }
 }

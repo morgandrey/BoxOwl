@@ -1,5 +1,7 @@
 package com.example.boxowl.presentation.auth
 
+import com.example.boxowl.models.User
+
 
 /**
  * Created by Andrey Morgunov on 27/10/2020.
@@ -8,7 +10,7 @@ package com.example.boxowl.presentation.auth
 interface SignInContract {
     interface View {
         fun onError(error: String)
-        fun onSuccess(user: String)
+        fun onSuccess(user: User)
     }
 
     interface Presenter {

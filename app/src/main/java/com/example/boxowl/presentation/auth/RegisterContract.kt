@@ -7,10 +7,11 @@ package com.example.boxowl.presentation.auth
 
 interface RegisterContract {
     interface View {
-
+        fun onError(error: String)
+        fun onSuccess(user: String)
     }
 
     interface Presenter {
-        fun onSignUpClick(userEmail: String, userPassword: String)
+        fun onSignUpClick(userName: String, userSurname: String, userEmail: String, userPassword: String)
     }
 }
