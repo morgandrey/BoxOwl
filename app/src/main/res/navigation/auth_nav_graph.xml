@@ -14,8 +14,7 @@
             android:id="@+id/action_registerFragment_to_signInFragment"
             app:destination="@id/signInFragment"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true" />
+            app:exitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"

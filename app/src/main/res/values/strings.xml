@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">BoxOwl</string>
-    <string name="sign_up_text_label">Sign up with email</string>
+    <string name="sign_up_text_label">Sign up</string>
     <string name="sign_up_text_btn_label">Зарегистрироваться</string>
     <string name="user_first_name_hint">Имя</string>
     <string name="user_second_name_hint">Фамилия</string>
-    <string name="user_email_hint">Почта</string>
+    <string name="user_phone_hint">Телефон</string>
     <string name="password_text_edit_hint">Пароль</string>
     <string name="confirm_password_text_edit_hint">Подтверждение пароля</string>
     <string name="have_an_account_label">Уже есть аккаунт?</string>
@@ -16,4 +16,7 @@
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="loading_dialog_text">Загрузка…</string>
+    <string name="log_out_text_btn">Выйти из аккаунта</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

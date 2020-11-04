@@ -73,17 +73,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/user_first_name_edit_text" />
 
             <EditText
-                android:id="@+id/user_email_edit_text"
+                android:id="@+id/phone_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_auth_bg"
-                android:drawableStart="@drawable/ic_email_24"
+                android:drawableStart="@drawable/ic_phone_24"
                 android:drawablePadding="@dimen/dimen_small_8dp"
                 android:ems="16"
-                android:hint="@string/user_email_hint"
+                android:hint="@string/user_phone_hint"
                 android:importantForAutofill="no"
-                android:inputType="textNoSuggestions|textEmailAddress"
+                android:inputType="phone"
                 android:paddingLeft="@dimen/padding_medium"
                 android:paddingTop="@dimen/padding_medium"
                 android:paddingRight="@dimen/padding_medium"
@@ -111,9 +111,9 @@
                 android:paddingRight="@dimen/padding_medium"
                 android:paddingBottom="@dimen/padding_medium"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/user_email_edit_text"
-                app:layout_constraintStart_toStartOf="@+id/user_email_edit_text"
-                app:layout_constraintTop_toBottomOf="@+id/user_email_edit_text" />
+                app:layout_constraintEnd_toEndOf="@+id/phone_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/phone_edit_text"
+                app:layout_constraintTop_toBottomOf="@+id/phone_edit_text" />
 
             <EditText
                 android:id="@+id/user_confirm_password_edit_text"

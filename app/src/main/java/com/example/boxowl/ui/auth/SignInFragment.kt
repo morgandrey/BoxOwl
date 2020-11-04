@@ -1,7 +1,9 @@
 package com.example.boxowl.ui.auth
 
 import android.app.AlertDialog
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +12,19 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.boxowl.*
+import com.example.boxowl.R
 import com.example.boxowl.databinding.FragmentSignInBinding
-import com.example.boxowl.models.CurrentUser
-import com.example.boxowl.models.User
+import com.example.boxowl.models.Courier
+import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.presentation.auth.SignInContract
 import com.example.boxowl.presentation.auth.SignInPresenter
-import com.example.boxowl.ui.extension.*
+import com.example.boxowl.ui.extension.hideKeyboard
+import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.slots.PredefinedSlots
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 
 /**
@@ -29,19 +36,31 @@ class SignInFragment : Fragment(), SignInContract.View {
     private lateinit var signInPresenter: SignInPresenter
     private lateinit var binding: FragmentSignInBinding
     private lateinit var loadingDialog: AlertDialog
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_sign_in,
-                container,
-                false
+            inflater,
+            R.layout.fragment_sign_in,
+            container,
+            false
         )
-        loadingDialog = loadingSpotsDialog(requireContext())
         signInPresenter = SignInPresenter(this)
+        sharedPref = requireActivity().getSharedPreferences("USER_ID", MODE_PRIVATE)
+        signInPresenter.isCourierSignIn(sharedPref)
+        loadView()
+        return binding.root
+    }
+
+    private fun loadView() {
+        val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
+        val watcher: FormatWatcher = MaskFormatWatcher(mask)
+        watcher.installOn(binding.phoneEditText)
+
+        loadingDialog = loadingSpotsDialog(requireContext())
         with(binding) {
             signUpLabel.onClick { view ->
                 view.hideKeyboard()
@@ -50,24 +69,23 @@ class SignInFragment : Fragment(), SignInContract.View {
             signInButton.onClick {
                 showLoadingDialog(loadingDialog)
                 signInPresenter.onSignInClick(
-                        userEmail = binding.emailEditText.text.toString(),
-                        userPassword = binding.passwordEditText.text.toString()
+                    courierPhone = binding.phoneEditText.text.toString().toNormalString(),
+                    courierPassword = binding.passwordEditText.text.toString()
                 )
             }
         }
         activity?.onBackPressedDispatcher?.addCallback(
-                viewLifecycleOwner,
-                object : OnBackPressedCallback(
-                        true
-                ) {
-                    override fun handleOnBackPressed() {
-                        val intent = Intent(Intent.ACTION_MAIN)
-                        intent.addCategory(Intent.CATEGORY_HOME)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                    }
-                })
-        return binding.root
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(
+                true
+            ) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(Intent.ACTION_MAIN)
+                    intent.addCategory(Intent.CATEGORY_HOME)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
+            })
     }
 
     override fun onDestroy() {
@@ -75,14 +93,23 @@ class SignInFragment : Fragment(), SignInContract.View {
         super.onDestroy()
     }
 
-    override fun onError(error: String) {
+    override fun onAPIError(error: String) {
         dismissLoadingDialog(loadingDialog)
         showToast(requireContext(), error)
     }
 
-    override fun onSuccess(user: User) {
+    override fun onSuccess(user: Courier) {
         dismissLoadingDialog(loadingDialog)
-        CurrentUser.user = user
+        with(sharedPref.edit()) {
+            putLong("UserId", user.CourierId)
+            apply()
+        }
+        CurrentCourier.courier = user
         requireView().findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+    }
+
+    override fun onAuthError() {
+        dismissLoadingDialog(loadingDialog)
+        showToast(requireContext(), "Неправильный телефон или пароль")
     }
 }

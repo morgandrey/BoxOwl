@@ -32,6 +32,14 @@ fun String.isEmail() : Boolean {
     return emailRegex.matcher(this).matches()
 }
 
+fun String.isPhone() : Boolean {
+    return this.length == 18
+}
+
+fun String.toNormalString() : String {
+    return this.filter { it.isDigit() || it == '+' }
+}
+
 fun loadingSpotsDialog(context: Context) : AlertDialog {
     return SpotsDialog.Builder()
             .setContext(context)

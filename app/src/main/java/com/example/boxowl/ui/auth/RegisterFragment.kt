@@ -4,18 +4,23 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.boxowl.*
-import com.example.boxowl.presentation.auth.RegisterPresenter
+import com.example.boxowl.R
 import com.example.boxowl.databinding.FragmentRegisterBinding
 import com.example.boxowl.presentation.auth.RegisterContract
-import com.example.boxowl.ui.extension.*
+import com.example.boxowl.presentation.auth.RegisterPresenter
+import com.example.boxowl.ui.extension.hideKeyboard
+import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.slots.PredefinedSlots
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 
 /**
@@ -29,27 +34,35 @@ class RegisterFragment : Fragment(), RegisterContract.View {
     private lateinit var loadingDialog: AlertDialog
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_register,
-                container,
-                false
+            inflater,
+            R.layout.fragment_register,
+            container,
+            false
         )
         registerPresenter = RegisterPresenter(this)
+        loadView()
+        return binding.root
+    }
+
+    private fun loadView() {
         loadingDialog = loadingSpotsDialog(requireContext())
+        val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
+        val watcher: FormatWatcher = MaskFormatWatcher(mask)
+        watcher.installOn(binding.phoneEditText)
+
         val registerTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.registerButton.isEnabled = !binding.userEmailEditText.text.isBlank()
-                        && !binding.userFirstNameEditText.text.isBlank()
+                binding.registerButton.isEnabled = !binding.userFirstNameEditText.text.isBlank()
                         && !binding.userSecondNameEditText.text.isBlank()
                         && !binding.userPasswordEditText.text.isBlank()
                         && !binding.userConfirmPasswordEditText.text.isBlank()
-                        && binding.userEmailEditText.text.toString().isEmail()
+                        && !binding.phoneEditText.text.toString().isPhone()
                         && binding.userPasswordEditText.text.toString() ==
                         binding.userConfirmPasswordEditText.text.toString()
             }
@@ -63,32 +76,36 @@ class RegisterFragment : Fragment(), RegisterContract.View {
             }
             userFirstNameEditText.addTextChangedListener(registerTextWatcher)
             userSecondNameEditText.addTextChangedListener(registerTextWatcher)
-            userEmailEditText.addTextChangedListener(registerTextWatcher)
             userPasswordEditText.addTextChangedListener(registerTextWatcher)
             userConfirmPasswordEditText.addTextChangedListener(registerTextWatcher)
 
             registerButton.onClick {
                 showLoadingDialog(loadingDialog)
                 registerPresenter.onSignUpClick(
-                        userName = userFirstNameEditText.text.toString(),
-                        userSurname = userSecondNameEditText.text.toString(),
-                        userEmail = userEmailEditText.text.toString(),
-                        userPassword = userPasswordEditText.text.toString()
+                    courierName = binding.userFirstNameEditText.text.toString(),
+                    courierSurname = binding.userSecondNameEditText.text.toString(),
+                    courierPhone = binding.phoneEditText.text.toString().toNormalString(),
+                    courierPassword = binding.userPasswordEditText.text.toString()
                 )
             }
         }
-        return binding.root
     }
 
     override fun onError(error: String) {
-        showToast(requireContext(), error)
         dismissLoadingDialog(loadingDialog)
+        showToast(requireContext(), error)
     }
 
-    override fun onSuccess(user: String) {
-        showToast(requireContext(), user)
+    override fun onSuccess(registerStatus: Boolean) {
         dismissLoadingDialog(loadingDialog)
-        requireView().findNavController().navigate(R.id.action_registerFragment_to_signInFragment)
+        when (registerStatus) {
+            true -> {
+                showToast(requireContext(), "Пользователь зарегистрирован")
+                requireView().findNavController()
+                    .navigate(R.id.action_registerFragment_to_signInFragment)
+            }
+            false -> showToast(requireContext(), "Такой пользователь уже существует")
+        }
     }
 
     override fun onDestroy() {

@@ -1,6 +1,7 @@
 package com.example.boxowl.presentation.auth
 
-import com.example.boxowl.models.User
+import android.content.SharedPreferences
+import com.example.boxowl.models.Courier
 import com.example.boxowl.remote.AuthService
 import com.example.boxowl.remote.Service
 import com.example.boxowl.utils.showAPIErrors
@@ -16,25 +17,49 @@ import io.reactivex.schedulers.Schedulers
 class SignInPresenter(private val view: SignInContract.View) : SignInContract.Presenter {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private lateinit var authService: AuthService
+    private var authService: AuthService = Service.authService
 
-    override fun onSignInClick(userEmail: String, userPassword: String) {
-        authService = Service.authService
-        val user = User(
-                UserEmail = userEmail,
-                UserPassword = userPassword
+    override fun onSignInClick(courierPhone: String, courierPassword: String) {
+        val courier = Courier(
+                CourierPhone = courierPhone,
+                CourierPassword = courierPassword
         )
         compositeDisposable.add(
-                authService.loginUser(user)
+                authService.loginCourier(courier)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {
-                                    view.onSuccess(it)
+                                {response ->
+                                    when (response.code()) {
+                                        200 -> view.onSuccess(response.body()!!)
+                                        204 -> view.onAuthError()
+                                    }
                                 },
                                 {
-                                    view.onError(showAPIErrors(it))
+                                    view.onAPIError(showAPIErrors(it))
                                 })
+        )
+    }
+
+    override fun isCourierSignIn(sharedPref: SharedPreferences) {
+        val userId = sharedPref.getLong("UserId", 0)
+        if (userId != 0L) {
+            getUser(userId)
+        }
+    }
+
+    private fun getUser(userId: Long) {
+        compositeDisposable.add(
+            authService.getCourier(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        view.onSuccess(it)
+                    },
+                    {
+                        view.onAPIError(showAPIErrors(it))
+                    })
         )
     }
 

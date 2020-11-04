@@ -1,6 +1,6 @@
 package com.example.boxowl.presentation.profile
 
-import com.example.boxowl.models.User
+import com.example.boxowl.models.Courier
 import com.example.boxowl.remote.Service
 import com.example.boxowl.remote.ProfileService
 import com.example.boxowl.utils.showAPIErrors
@@ -17,15 +17,19 @@ class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var profileService: ProfileService
 
-    override fun updateUserData(user: User) {
+    override fun updateUserData(user: Courier) {
         profileService = Service.profileService
         compositeDisposable.add(
-                profileService.updateUserProfile(user.UserId, user)
+                profileService.updateUserProfile(user.CourierId, user)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                {
-                                    view.loadUserData(it.body()!!)
+                                {response ->
+                                    if (response.code() == 204) {
+                                        view.onSuccess()
+                                    } else {
+                                        view.onError(response.message())
+                                    }
                                 },
                                 {
                                     view.onError(showAPIErrors(it))

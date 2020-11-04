@@ -1,6 +1,7 @@
 package com.example.boxowl.presentation.auth
 
-import com.example.boxowl.models.User
+import android.content.SharedPreferences
+import com.example.boxowl.models.Courier
 
 
 /**
@@ -9,11 +10,13 @@ import com.example.boxowl.models.User
 
 interface SignInContract {
     interface View {
-        fun onError(error: String)
-        fun onSuccess(user: User)
+        fun onAPIError(error: String)
+        fun onSuccess(user: Courier)
+        fun onAuthError()
     }
 
     interface Presenter {
-        fun onSignInClick(userEmail: String, userPassword: String)
+        fun onSignInClick(courierPhone: String, courierPassword: String)
+        fun isCourierSignIn(sharedPref: SharedPreferences)
     }
 }
