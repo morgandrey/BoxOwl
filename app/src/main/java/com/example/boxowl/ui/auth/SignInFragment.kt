@@ -5,11 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.boxowl.R
@@ -21,6 +18,7 @@ import com.example.boxowl.presentation.auth.SignInPresenter
 import com.example.boxowl.ui.extension.hideKeyboard
 import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import com.wada811.viewbinding.viewBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.FormatWatcher
@@ -31,28 +29,19 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher
  * Created by Andrey Morgunov on 22/10/2020.
  */
 
-class SignInFragment : Fragment(), SignInContract.View {
+class SignInFragment : Fragment(R.layout.fragment_sign_in), SignInContract.View {
 
     private lateinit var signInPresenter: SignInPresenter
-    private lateinit var binding: FragmentSignInBinding
+    private val binding: FragmentSignInBinding by viewBinding()
     private lateinit var loadingDialog: AlertDialog
     private lateinit var sharedPref: SharedPreferences
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_sign_in,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         signInPresenter = SignInPresenter(this)
         sharedPref = requireActivity().getSharedPreferences("USER_ID", MODE_PRIVATE)
         signInPresenter.isCourierSignIn(sharedPref)
         loadView()
-        return binding.root
     }
 
     private fun loadView() {

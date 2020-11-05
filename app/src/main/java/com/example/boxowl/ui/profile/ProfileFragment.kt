@@ -11,25 +11,23 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Base64
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.boxowl.AuthActivity
 import com.example.boxowl.NavigationManager
 import com.example.boxowl.R
-import com.example.boxowl.bases.BaseFragment
 import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.bases.HasNavigationManager
 import com.example.boxowl.databinding.FragmentProfileBinding
-import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.models.Courier
+import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.presentation.profile.ProfileContract
 import com.example.boxowl.presentation.profile.ProfilePresenter
 import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import com.wada811.viewbinding.viewBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.FormatWatcher
@@ -42,14 +40,14 @@ import java.util.*
  * Created by Andrey Morgunov on 27/10/2020.
  */
 
-class ProfileFragment : BaseFragment(), ProfileContract.View, HasNavigationManager {
+class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.View, HasNavigationManager {
 
     interface OnProfileFragmentInteractionListener : FragmentInteractionListener
 
     private lateinit var listener: OnProfileFragmentInteractionListener
     private lateinit var mNavigationManager: NavigationManager
 
-    private lateinit var binding: FragmentProfileBinding
+    private val binding: FragmentProfileBinding by viewBinding()
     private lateinit var profilePresenter: ProfilePresenter
     private lateinit var loadingDialog: AlertDialog
 
@@ -59,17 +57,8 @@ class ProfileFragment : BaseFragment(), ProfileContract.View, HasNavigationManag
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_profile,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         profilePresenter = ProfilePresenter(this)
         loadingDialog = loadingSpotsDialog(requireContext())
 
@@ -96,8 +85,6 @@ class ProfileFragment : BaseFragment(), ProfileContract.View, HasNavigationManag
                     startActivity(intent)
                 }
             })
-
-        return binding.root
     }
 
     private fun logOut() {

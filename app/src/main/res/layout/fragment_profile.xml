@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -109,4 +108,3 @@
                 app:layout_constraintTop_toBottomOf="@+id/change_user_data_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</layout>

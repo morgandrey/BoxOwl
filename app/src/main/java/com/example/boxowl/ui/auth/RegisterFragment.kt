@@ -4,10 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.boxowl.R
@@ -17,6 +14,7 @@ import com.example.boxowl.presentation.auth.RegisterPresenter
 import com.example.boxowl.ui.extension.hideKeyboard
 import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import com.wada811.viewbinding.viewBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.FormatWatcher
@@ -27,25 +25,16 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher
  * Created by Andrey Morgunov on 22/10/2020.
  */
 
-class RegisterFragment : Fragment(), RegisterContract.View {
+class RegisterFragment : Fragment(R.layout.fragment_register), RegisterContract.View {
 
     private lateinit var registerPresenter: RegisterPresenter
-    private lateinit var binding: FragmentRegisterBinding
+    private val binding: FragmentRegisterBinding by viewBinding()
     private lateinit var loadingDialog: AlertDialog
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_register,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerPresenter = RegisterPresenter(this)
         loadView()
-        return binding.root
     }
 
     private fun loadView() {
