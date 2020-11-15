@@ -9,16 +9,14 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-
         <Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat" />
-
+            android:layout_gravity="center"
+            android:titleTextColor="@color/white"/>
 
         <FrameLayout
             android:id="@+id/container"
@@ -31,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/navigation" />
+            app:menu="@menu/bottom_navigation_menu" />
 
     </LinearLayout>
 </layout>

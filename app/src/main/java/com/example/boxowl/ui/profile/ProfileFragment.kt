@@ -159,6 +159,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
     override fun onStart() {
         super.onStart()
         listener.setBottomNavigation(true, R.id.navigation_profile)
+        listener.setToolbarTitle(resources.getString(R.string.title_profile))
     }
 
     override fun provideNavigationManager(): NavigationManager = mNavigationManager
@@ -195,10 +196,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         showToast(requireContext(), "Данные изменены")
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         Objects.requireNonNull(requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING))
         super.onResume()
-    }
+    }*/
 
     override fun onDestroy() {
         profilePresenter.onDestroy()

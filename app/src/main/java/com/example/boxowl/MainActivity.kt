@@ -11,12 +11,13 @@ import com.example.boxowl.databinding.ActivityMainBinding
 import com.example.boxowl.ui.home.HomeFragment
 import com.example.boxowl.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 
 class MainActivity : AppCompatActivity(), HasNavigationManager,
     HomeFragment.OnHomeFragmentInteractionListener,
     ProfileFragment.OnProfileFragmentInteractionListener {
 
-    private lateinit var navigation: BottomNavigationView
+    private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var toolbar: Toolbar
     private lateinit var mNavigationManager: NavigationManager
     private lateinit var binding: ActivityMainBinding
@@ -30,15 +31,16 @@ class MainActivity : AppCompatActivity(), HasNavigationManager,
             this,
             R.layout.activity_main
         )
-        navigation = binding.navigation
+        bottomNavigation = binding.navigation
+        bottomNavigation.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_SELECTED
         toolbar = binding.toolbar
         setActionBar(toolbar)
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         if (savedInstanceState == null) {
             mNavigationManager.openAsRoot(HomeFragment.newInstance())
-            navigation.menu.getItem(0).isChecked
+            bottomNavigation.menu.getItem(0).isChecked
         }
 
     }
@@ -59,15 +61,15 @@ class MainActivity : AppCompatActivity(), HasNavigationManager,
 
     override fun setBottomNavigation(show: Boolean, menuId: Int) {
         if (show) {
-            navigation.visibility = View.VISIBLE
+            bottomNavigation.visibility = View.VISIBLE
 
             when (menuId) {
-                R.id.navigation_home -> navigation.menu.getItem(0).isChecked = true
-                R.id.navigation_profile -> navigation.menu.getItem(1).isChecked = true
+                R.id.navigation_home -> bottomNavigation.menu.getItem(0).isChecked = true
+                R.id.navigation_profile -> bottomNavigation.menu.getItem(1).isChecked = true
             }
 
         } else
-            navigation.visibility = View.GONE
+            bottomNavigation.visibility = View.GONE
     }
 
     override fun onBackPressed() {

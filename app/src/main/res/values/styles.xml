@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="AuthActivityBackground" parent="Theme.FootDelivery">
-        <item name="android:windowBackground">@drawable/auth_bg</item>
-    </style>
-</resources>
