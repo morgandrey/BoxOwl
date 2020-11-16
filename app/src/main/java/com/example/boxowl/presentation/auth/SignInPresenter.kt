@@ -5,6 +5,7 @@ import com.example.boxowl.models.Courier
 import com.example.boxowl.remote.AuthService
 import com.example.boxowl.remote.Service
 import com.example.boxowl.utils.showAPIErrors
+import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,30 +22,32 @@ class SignInPresenter(private val view: SignInContract.View) : SignInContract.Pr
 
     override fun onSignInClick(courierPhone: String, courierPassword: String) {
         val courier = Courier(
-                CourierPhone = courierPhone,
-                CourierPassword = courierPassword
+            CourierPhone = courierPhone,
+            CourierPassword = courierPassword
         )
         compositeDisposable.add(
-                authService.loginCourier(courier)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                {response ->
-                                    when (response.code()) {
-                                        200 -> view.onSuccess(response.body()!!)
-                                        204 -> view.onAuthError()
-                                    }
-                                },
-                                {
-                                    view.onAPIError(showAPIErrors(it))
-                                })
+            authService.loginCourier(courier)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { response ->
+                        when (response.code()) {
+                            200 -> view.onSuccess(response.body()!!)
+                            204 -> view.onAuthError()
+                        }
+                    },
+                    {
+                        view.onAPIError(showAPIErrors(it))
+                    })
         )
     }
 
     override fun isCourierSignIn(sharedPref: SharedPreferences) {
-        val userId = sharedPref.getLong("UserId", 0)
-        if (userId != 0L) {
-            getUser(userId)
+        val gson = Gson()
+        val json = sharedPref.getString("CourierObject", null)
+        if (json != null) {
+            val courier = gson.fromJson(json, Courier::class.java)
+            getUser(courier.CourierId)
         }
     }
 

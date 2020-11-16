@@ -4,6 +4,7 @@ import android.app.Activity.MODE_PRIVATE
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,7 +13,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.boxowl.AuthActivity
@@ -33,14 +33,14 @@ import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.FormatWatcher
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 
 /**
  * Created by Andrey Morgunov on 27/10/2020.
  */
 
-class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.View, HasNavigationManager {
+class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.View,
+    HasNavigationManager {
 
     interface OnProfileFragmentInteractionListener : FragmentInteractionListener
 
@@ -67,7 +67,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         with(binding) {
             changeUserDataBtn.onClick {
                 showLoadingDialog(loadingDialog)
-                profilePresenter.updateUserData(changedUser()) }
+                profilePresenter.updateUserData(changedUser())
+            }
             changeUserImageBtn.onClick { getImageFromGallery() }
             logOutBtn.onClick { logOut() }
         }
@@ -88,10 +89,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
     }
 
     private fun logOut() {
-        val sharedPreferences = requireActivity().getSharedPreferences("USER_ID", MODE_PRIVATE)
-        sharedPreferences.edit().remove("UserId").apply()
-        val myIntent = Intent(activity, AuthActivity::class.java)
-        startActivity(myIntent)
+        AlertDialog.Builder(activity)
+            .setMessage(R.string.dialog_logout_message)
+            .setTitle(R.string.dialog_confirmation_title)
+            .setPositiveButton(R.string.dialog_ok) { _, _ ->
+                val sharedPreferencesUser =
+                    requireActivity().getSharedPreferences("COURIER", MODE_PRIVATE)
+                sharedPreferencesUser.edit().remove("CourierObject").apply()
+                sharedPreferencesUser.edit().remove("CourierPinCode").apply()
+                startActivity(Intent(activity, AuthActivity::class.java))
+            }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .create()
+            .show()
     }
 
     private fun getImageFromGallery() {
@@ -121,9 +131,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.changeUserDataBtn.isEnabled = !binding.firstNameEditText.text.toString().isBlank()
-                        && !binding.secondNameEditText.text.toString().isBlank()
-                        && binding.phoneEditText.text.toString().isPhone()
+                binding.changeUserDataBtn.isEnabled =
+                    !binding.firstNameEditText.text.toString().isBlank()
+                            && !binding.secondNameEditText.text.toString().isBlank()
+                            && binding.phoneEditText.text.toString().isPhone()
             }
 
             override fun afterTextChanged(s: Editable?) {}

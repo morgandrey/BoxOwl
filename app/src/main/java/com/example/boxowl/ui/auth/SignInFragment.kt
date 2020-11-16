@@ -18,6 +18,7 @@ import com.example.boxowl.presentation.auth.SignInPresenter
 import com.example.boxowl.ui.extension.hideKeyboard
 import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import com.google.gson.Gson
 import com.wada811.viewbinding.viewBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
@@ -39,7 +40,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), SignInContract.View 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         signInPresenter = SignInPresenter(this)
-        sharedPref = requireActivity().getSharedPreferences("USER_ID", MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("COURIER", MODE_PRIVATE)
         signInPresenter.isCourierSignIn(sharedPref)
         loadView()
     }
@@ -48,7 +49,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), SignInContract.View 
         val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
         val watcher: FormatWatcher = MaskFormatWatcher(mask)
         watcher.installOn(binding.phoneEditText)
-
         loadingDialog = loadingSpotsDialog(requireContext())
         with(binding) {
             signUpLabel.onClick { view ->
@@ -87,14 +87,18 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), SignInContract.View 
         showToast(requireContext(), error)
     }
 
-    override fun onSuccess(user: Courier) {
+    override fun onSuccess(courier: Courier) {
         dismissLoadingDialog(loadingDialog)
+        val gson = Gson()
+        val json = gson.toJson(courier)
         with(sharedPref.edit()) {
-            putLong("UserId", user.CourierId)
+            putString("CourierObject", json)
             apply()
         }
-        CurrentCourier.courier = user
-        requireView().findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+        CurrentCourier.courier = courier
+        requireView().hideKeyboard()
+        requireView().findNavController()
+            .navigate(R.id.action_signInFragment_to_pinLockFragment)
     }
 
     override fun onAuthError() {

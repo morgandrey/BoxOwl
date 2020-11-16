@@ -29,13 +29,16 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_signInFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_signInFragment_to_pinLockFragment"
+            app:destination="@id/pinLockFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.boxowl.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/pinLockFragment"
+        android:name="com.example.boxowl.ui.auth.PinLockFragment"
+        android:label="PinLockFragment"
+        tools:layout="@layout/fragment_pin_lock"/>
 </navigation>

@@ -1,22 +1,28 @@
 <resources>
-    <string name="app_name">BoxOwl</string>
+    <string name="app_name" translatable="false">box-owl</string>
     <string name="sign_up_text_label">Sign up</string>
-    <string name="sign_up_text_btn_label">Зарегистрироваться</string>
-    <string name="user_first_name_hint">Имя</string>
-    <string name="user_second_name_hint">Фамилия</string>
-    <string name="user_phone_hint">Телефон</string>
-    <string name="password_text_edit_hint">Пароль</string>
-    <string name="confirm_password_text_edit_hint">Подтверждение пароля</string>
-    <string name="have_an_account_label">Уже есть аккаунт?</string>
+    <string name="user_first_name_hint">Name</string>
+    <string name="user_second_name_hint">Surname</string>
+    <string name="user_phone_hint">Tel</string>
+    <string name="password_text_edit_hint">Password</string>
+    <string name="confirm_password_text_edit_hint">Confirm password</string>
+    <string name="have_an_account_label">Already have an account?</string>
     <string name="sign_in_text_label">Sign in</string>
-    <string name="sign_in_text_btn_label">Войти</string>
-    <string name="google_text_button">Google</string>
-    <string name="facebook_text_button">Facebook</string>
-    <string name="does_not_have_account_label">Ещё нет аккаунта?</string>
+    <string name="google_text_button" translatable="false">Google</string>
+    <string name="facebook_text_button" translatable="false">Facebook</string>
+    <string name="do_not_have_account_label">Don\'t have an account?</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
-    <string name="loading_dialog_text">Загрузка…</string>
-    <string name="log_out_text_btn">Выйти из аккаунта</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading_dialog_text">Loading…</string>
+    <string name="log_out_text_btn">Logout</string>
+    <string name="title_order_history">History</string>
+    <string name="create_the_pin_code">Create your PIN code</string>
+    <string name="enter_the_pin_code_again">Enter the PIN code again</string>
+    <string name="pin_codes_do_not_match">PIN codes do not match</string>
+    <string name="wrong_pin_code">Wrong PIN code</string>
+    <string name="dialog_confirmation_title">The confirmation</string>
+    <string name="dialog_logout_message">Are you sure you want to reset the access PIN code and log in with your phone number?</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok" translatable="false">OK</string>
+    <string name="title_settings">Settings</string>
 </resources>

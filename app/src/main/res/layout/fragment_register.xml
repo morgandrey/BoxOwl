@@ -142,13 +142,12 @@
             android:background="@drawable/auth_btn_bg"
             android:enabled="false"
             android:scrollbars="none"
-            android:text="@string/sign_up_text_btn_label"
+            android:text="@string/sign_up_text_label"
             android:textAllCaps="false"
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toEndOf="@+id/user_confirm_password_edit_text"
             app:layout_constraintStart_toStartOf="@+id/user_confirm_password_edit_text"
-            app:layout_constraintTop_toBottomOf="@+id/user_confirm_password_edit_text"
-            tools:text="Регистрация" />
+            app:layout_constraintTop_toBottomOf="@+id/user_confirm_password_edit_text" />
 
         <TextView
             android:id="@+id/have_account_label"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_up_text_label">Зарегистрироваться</string>
+    <string name="user_first_name_hint">Имя</string>
+    <string name="user_second_name_hint">Фамилия</string>
+    <string name="user_phone_hint">Телефон</string>
+    <string name="password_text_edit_hint">Пароль</string>
+    <string name="confirm_password_text_edit_hint">Подтверждение пароля</string>
+    <string name="have_an_account_label">Уже есть аккаунт?</string>
+    <string name="sign_in_text_label">Войти</string>
+    <string name="do_not_have_account_label">Нет аккаунта?</string>
+    <string name="title_profile">Профиль</string>
+    <string name="loading_dialog_text">Загрузка…</string>
+    <string name="log_out_text_btn">Выход</string>
+    <string name="title_order_history">История</string>
+    <string name="create_the_pin_code">Создайте ПИН код</string>
+    <string name="pin_codes_do_not_match">ПИН коды не совпадают</string>
+    <string name="wrong_pin_code">Неправильный ПИН код</string>
+    <string name="dialog_confirmation_title">Подтвреждение</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_home">Заказы</string>
+    <string name="enter_the_pin_code_again">Введите ПИН код снова</string>
+    <string name="dialog_logout_message">Вы уверены, что хотите сбросить ПИН код и авторизоваться по номеру телефона?</string>
+</resources>

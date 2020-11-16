@@ -1,21 +1,17 @@
-package com.example.boxowl.ui.home
+package com.example.boxowl.ui.order.active
 
 import android.app.AlertDialog
 import com.example.boxowl.bases.FragmentInteractionListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boxowl.R
-import com.example.boxowl.bases.BaseFragment
 import com.example.boxowl.databinding.FragmentHomeBinding
-import com.example.boxowl.databinding.FragmentProfileBinding
 import com.example.boxowl.models.Order
 import com.example.boxowl.presentation.home.HomeAdapter
 import com.example.boxowl.presentation.home.HomeContract
