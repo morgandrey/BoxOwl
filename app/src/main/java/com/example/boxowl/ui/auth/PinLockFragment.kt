@@ -34,8 +34,10 @@ class PinLockFragment : Fragment(R.layout.fragment_pin_lock) {
         super.onViewCreated(view, savedInstanceState)
         sharedPref = requireActivity().getSharedPreferences("COURIER", Context.MODE_PRIVATE)
         courierPinCode = sharedPref.getString("CourierPinCode", null)
+
+        binding.indicatorDots.indicatorType = IndicatorDots.IndicatorType.FIXED
         binding.pinCode.attachIndicatorDots(binding.indicatorDots)
-        binding.indicatorDots.indicatorType = IndicatorDots.IndicatorType.FILL_WITH_ANIMATION
+
         if (courierPinCode == null) {
             createPinCode()
         } else {
@@ -58,17 +60,11 @@ class PinLockFragment : Fragment(R.layout.fragment_pin_lock) {
     }
 
     private fun enterPinCode() {
-        with(binding.pinCode) {
-            setPinLockListener(pinLockEnterListener)
-            textColor = ContextCompat.getColor(requireContext(), R.color.white)
-        }
+        binding.pinCode.setPinLockListener(pinLockEnterListener)
     }
 
     private fun createPinCode() {
-        with(binding.pinCode) {
-            setPinLockListener(pinLockRegisterListener)
-            textColor = ContextCompat.getColor(requireContext(), R.color.white)
-        }
+        binding.pinCode.setPinLockListener(pinLockRegisterListener)
     }
 
     private val pinLockEnterListener: PinLockListener = object : PinLockListener {
