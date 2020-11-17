@@ -1,11 +1,11 @@
 package com.example.boxowl.presentation.home
 
 import android.content.Intent
+import android.content.res.Resources.getSystem
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -27,8 +27,12 @@ class HomeAdapter(private var dataSet: List<Order>) :
         private val locationButton: ImageButton = itemView.findViewById(R.id.location_btn)
 
         fun bind(item: Order) {
-            orderId.text = "1"
+            orderId.text =
+                itemView.resources.getString(R.string.order_item_id, item.OrderId.toString())
             orderAddress.text = item.DeliveryAddress
+            itemView.setOnClickListener{view ->
+
+            }
             locationButton.setOnClickListener {
                 val gmmIntentUri = Uri.parse("geo:0,0?q=${item.DeliveryAddress}, Москва")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)

@@ -4,7 +4,6 @@ import android.app.Activity.MODE_PRIVATE
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,10 +15,8 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.boxowl.AuthActivity
-import com.example.boxowl.NavigationManager
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
-import com.example.boxowl.bases.HasNavigationManager
 import com.example.boxowl.databinding.FragmentProfileBinding
 import com.example.boxowl.models.Courier
 import com.example.boxowl.models.CurrentCourier
@@ -39,23 +36,15 @@ import java.io.ByteArrayOutputStream
  * Created by Andrey Morgunov on 27/10/2020.
  */
 
-class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.View,
-    HasNavigationManager {
+class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.View {
 
     interface OnProfileFragmentInteractionListener : FragmentInteractionListener
 
     private lateinit var listener: OnProfileFragmentInteractionListener
-    private lateinit var mNavigationManager: NavigationManager
 
     private val binding: FragmentProfileBinding by viewBinding()
     private lateinit var profilePresenter: ProfilePresenter
     private lateinit var loadingDialog: AlertDialog
-
-    companion object {
-        fun newInstance(): ProfileFragment {
-            return ProfileFragment()
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -164,7 +153,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         } else {
             throw RuntimeException(requireContext().toString() + " must implement OnProfileFragmentInteractionListener")
         }
-        mNavigationManager = NavigationManager(childFragmentManager, R.id.container)
     }
 
     override fun onStart() {
@@ -172,8 +160,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         listener.setBottomNavigation(true, R.id.navigation_profile)
         listener.setToolbarTitle(resources.getString(R.string.title_profile))
     }
-
-    override fun provideNavigationManager(): NavigationManager = mNavigationManager
 
     override fun loadUserData(courier: Courier) {
         val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)

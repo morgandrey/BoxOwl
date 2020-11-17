@@ -41,8 +41,20 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in), SignInContract.View 
         super.onViewCreated(view, savedInstanceState)
         signInPresenter = SignInPresenter(this)
         sharedPref = requireActivity().getSharedPreferences("COURIER", MODE_PRIVATE)
-        signInPresenter.isCourierSignIn(sharedPref)
+        isCourierSignIn(sharedPref)
         loadView()
+    }
+
+    private fun isCourierSignIn(sharedPref: SharedPreferences) {
+        val gson = Gson()
+        val json = sharedPref.getString("CourierObject", null)
+        if (json != null) {
+            val courier = gson.fromJson(json, Courier::class.java)
+            CurrentCourier.courier = courier
+            requireView().hideKeyboard()
+            requireView().findNavController()
+                .navigate(R.id.action_signInFragment_to_pinLockFragment)
+        }
     }
 
     private fun loadView() {

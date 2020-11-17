@@ -6,7 +6,7 @@ package com.example.boxowl.models
  */
 
 data class Order (
-    var ClientId: Long = 0,
+    var OrderId: Long = 0,
     var ClientName: String = "",
     var ClientSurname: String = "",
     var ClientPhone: String = "",

@@ -12,8 +12,9 @@
         android:id="@+id/order_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/order_item_id"
         android:textStyle="bold"
-        tools:text="1" />
+        tools:text="Order №2" />
 
     <TextView
         android:id="@+id/order_address"

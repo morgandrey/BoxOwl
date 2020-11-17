@@ -9,24 +9,18 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
-import com.example.boxowl.databinding.FragmentHistoryBinding
+import com.example.boxowl.databinding.FragmentOrderHistoryBinding
 import com.example.boxowl.utils.loadingSpotsDialog
 import com.wada811.viewbinding.viewBinding
 
 
-class HistoryFragment : Fragment(R.layout.fragment_home) {
+class OrderHistoryFragment : Fragment(R.layout.fragment_home) {
 
     interface OnHistoryFragmentInteractionListener : FragmentInteractionListener
 
-    private val binding: FragmentHistoryBinding by viewBinding()
+    private val binding: FragmentOrderHistoryBinding by viewBinding()
     private lateinit var loadingDialog: AlertDialog
-    lateinit var listener: OnHistoryFragmentInteractionListener
-
-    companion object {
-        fun newInstance(): HistoryFragment {
-            return HistoryFragment()
-        }
-    }
+    private lateinit var listener: OnHistoryFragmentInteractionListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +48,7 @@ class HistoryFragment : Fragment(R.layout.fragment_home) {
         if (context is OnHistoryFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(requireContext().toString() + " must implement OnHistoryFragmentInteractionListener")
+            throw RuntimeException(requireContext().toString() + " must implement OnOrderHistoryFragmentInteractionListener")
         }
     }
 

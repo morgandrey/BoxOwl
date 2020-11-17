@@ -2,61 +2,47 @@ package com.example.boxowl
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.example.boxowl.bases.BaseFragment
-import com.example.boxowl.bases.HasNavigationManager
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.boxowl.databinding.ActivityMainBinding
-import com.example.boxowl.ui.home.HomeFragment
+import com.example.boxowl.ui.order.active.HomeFragment
+import com.example.boxowl.ui.order.history.OrderHistoryFragment
 import com.example.boxowl.ui.profile.ProfileFragment
+import com.example.boxowl.ui.settings.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.wada811.viewbinding.viewBinding
 
-class MainActivity : AppCompatActivity(), HasNavigationManager,
+
+class MainActivity : AppCompatActivity(R.layout.activity_main),
     HomeFragment.OnHomeFragmentInteractionListener,
-    ProfileFragment.OnProfileFragmentInteractionListener {
+    OrderHistoryFragment.OnHistoryFragmentInteractionListener,
+    ProfileFragment.OnProfileFragmentInteractionListener,
+    SettingsFragment.OnSettingsFragmentInteractionListener {
 
     private lateinit var bottomNavigation: BottomNavigationView
-    private lateinit var toolbar: Toolbar
-    private lateinit var mNavigationManager: NavigationManager
-    private lateinit var binding: ActivityMainBinding
-    private var mCurrentFragment: BaseFragment? = null
+    private val binding: ActivityMainBinding by viewBinding()
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mNavigationManager = NavigationManager(supportFragmentManager, R.id.container)
-
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
-        bottomNavigation = binding.navigation
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        bottomNavigation = binding.bottomNavigationView
         bottomNavigation.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_SELECTED
-        toolbar = binding.toolbar
-        setActionBar(toolbar)
-
-        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
+        setActionBar(binding.toolbarView)
+        bottomNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         if (savedInstanceState == null) {
-            mNavigationManager.openAsRoot(HomeFragment.newInstance())
             bottomNavigation.menu.getItem(0).isChecked
         }
-
     }
-
-    override fun provideNavigationManager(): NavigationManager = mNavigationManager
 
     override fun setToolbarTitle(title: String) {
-        toolbar.title = title
-    }
-
-    override fun setCurrentFragment(fragment: BaseFragment) {
-        mCurrentFragment = fragment
+        binding.toolbarView.title = title
     }
 
     override fun setToolbarVisibility(show: Boolean) {
-        toolbar.visibility = if (show) View.VISIBLE else View.GONE
+        binding.toolbarView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun setBottomNavigation(show: Boolean, menuId: Int) {
@@ -65,27 +51,32 @@ class MainActivity : AppCompatActivity(), HasNavigationManager,
 
             when (menuId) {
                 R.id.navigation_home -> bottomNavigation.menu.getItem(0).isChecked = true
-                R.id.navigation_profile -> bottomNavigation.menu.getItem(1).isChecked = true
+                R.id.navigation_order_history -> bottomNavigation.menu.getItem(1).isChecked = true
+                R.id.navigation_profile -> bottomNavigation.menu.getItem(2).isChecked = true
+                R.id.navigation_settings -> bottomNavigation.menu.getItem(3).isChecked = true
             }
 
         } else
             bottomNavigation.visibility = View.GONE
     }
 
-    override fun onBackPressed() {
-        if (mCurrentFragment == null || !mCurrentFragment!!.onBackPressed())
-            super.onBackPressed()
-    }
-
-    private val mOnNavigationItemSelectedListener =
+    private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    mNavigationManager.open(HomeFragment.newInstance())
+                    navController.navigate(R.id.homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_order_history -> {
+                    navController.navigate(R.id.orderHistoryFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-                    mNavigationManager.open(ProfileFragment.newInstance())
+                    navController.navigate(R.id.profileFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_settings -> {
+                    navController.navigate(R.id.settingsFragment)
                     return@OnNavigationItemSelectedListener true
                 }
             }

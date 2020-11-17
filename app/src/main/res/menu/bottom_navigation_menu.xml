@@ -3,12 +3,24 @@
     <item
         android:id="@+id/navigation_home"
         android:enabled="true"
-        android:icon="@drawable/ic_home_24"
+        android:icon="@drawable/ic_active_orders_24"
         android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_order_history"
+        android:enabled="true"
+        android:icon="@drawable/ic_order_history_24"
+        android:title="@string/title_order_history" />
 
     <item
         android:id="@+id/navigation_profile"
         android:enabled="true"
         android:icon="@drawable/ic_face_24"
         android:title="@string/title_profile" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/title_settings" />
 </menu>

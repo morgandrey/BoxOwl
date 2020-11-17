@@ -1,7 +1,5 @@
 package com.example.boxowl.ui.order.active
 
-import android.app.AlertDialog
-import com.example.boxowl.bases.FragmentInteractionListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,16 +7,14 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.boxowl.R
+import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentHomeBinding
 import com.example.boxowl.models.Order
 import com.example.boxowl.presentation.home.HomeAdapter
 import com.example.boxowl.presentation.home.HomeContract
 import com.example.boxowl.presentation.home.HomePresenter
-import com.example.boxowl.utils.dismissLoadingDialog
-import com.example.boxowl.utils.loadingSpotsDialog
-import com.example.boxowl.utils.showLoadingDialog
+import com.example.boxowl.utils.showToast
 import com.wada811.viewbinding.viewBinding
 
 
@@ -31,16 +27,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
     interface OnHomeFragmentInteractionListener : FragmentInteractionListener
 
     private val binding: FragmentHomeBinding by viewBinding()
-    private lateinit var recyclerView: RecyclerView
     private lateinit var homePresenter: HomePresenter
-    private lateinit var loadingDialog: AlertDialog
-    lateinit var listener: OnHomeFragmentInteractionListener
-
-    companion object {
-        fun newInstance(): HomeFragment {
-            return HomeFragment()
-        }
-    }
+    private lateinit var listener: OnHomeFragmentInteractionListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,8 +37,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
 
     private fun loadView() {
         homePresenter = HomePresenter(this)
-        loadingDialog = loadingSpotsDialog(requireContext())
-        showLoadingDialog(loadingDialog)
+        binding.orderRecyclerView.visibility = View.GONE
+        binding.orderProgressBar.visibility = View.VISIBLE
         homePresenter.loadOrders()
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
@@ -88,13 +76,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
     }
 
     override fun onSuccess(dataset: List<Order>) {
-        recyclerView = binding.stockRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = HomeAdapter(dataset)
-        dismissLoadingDialog(loadingDialog)
+        binding.orderRecyclerView.visibility = View.VISIBLE
+        binding.orderProgressBar.visibility = View.GONE
+        binding.orderRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.orderRecyclerView.adapter = HomeAdapter(dataset)
     }
 
     override fun onError(error: String) {
-        dismissLoadingDialog(loadingDialog)
+        showToast(requireContext(), error)
     }
 }

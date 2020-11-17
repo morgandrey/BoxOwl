@@ -11,12 +11,11 @@ import com.example.boxowl.models.Courier
 interface SignInContract {
     interface View {
         fun onAPIError(error: String)
-        fun onSuccess(user: Courier)
+        fun onSuccess(courier: Courier)
         fun onAuthError()
     }
 
     interface Presenter {
         fun onSignInClick(courierPhone: String, courierPassword: String)
-        fun isCourierSignIn(sharedPref: SharedPreferences)
     }
 }

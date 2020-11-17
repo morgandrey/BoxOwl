@@ -42,16 +42,7 @@ class SignInPresenter(private val view: SignInContract.View) : SignInContract.Pr
         )
     }
 
-    override fun isCourierSignIn(sharedPref: SharedPreferences) {
-        val gson = Gson()
-        val json = sharedPref.getString("CourierObject", null)
-        if (json != null) {
-            val courier = gson.fromJson(json, Courier::class.java)
-            getUser(courier.CourierId)
-        }
-    }
-
-    private fun getUser(userId: Long) {
+    /*private fun getUser(userId: Long) {
         compositeDisposable.add(
             authService.getCourier(userId)
                 .subscribeOn(Schedulers.io())
@@ -64,7 +55,7 @@ class SignInPresenter(private val view: SignInContract.View) : SignInContract.Pr
                         view.onAPIError(showAPIErrors(it))
                     })
         )
-    }
+    }*/
 
     fun onDestroy() {
         compositeDisposable.clear()
