@@ -49,6 +49,7 @@
             android:paddingRight="@dimen/padding_medium"
             android:paddingBottom="@dimen/padding_medium"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_label" />
@@ -70,6 +71,7 @@
             android:paddingRight="@dimen/padding_medium"
             android:paddingBottom="@dimen/padding_medium"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/phone_edit_text"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_edit_text"
@@ -95,6 +97,7 @@
             android:layout_marginStart="8dp"
             android:text="@string/sign_up_text_label"
             android:textColor="@color/design_default_color_error"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -102,46 +105,14 @@
             app:layout_constraintTop_toTopOf="@+id/textView"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/google_btn_sign_in"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_xxlarge_56dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/auth_btn_bg"
-            android:drawableStart="@drawable/ic_google"
-            android:drawablePadding="10dp"
-            android:paddingStart="20dp"
-            android:text="@string/google_text_button"
-            android:textAlignment="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/facebook_btn_sign_in"
-            app:layout_constraintStart_toStartOf="@+id/sign_in_button"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_label" />
-
-        <Button
-            android:id="@+id/facebook_btn_sign_in"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/auth_btn_bg"
-            android:drawableStart="@drawable/ic_facebook"
-            android:drawablePadding="10dp"
-            android:paddingStart="20dp"
-            android:text="@string/facebook_text_button"
-            android:textAlignment="textStart"
-            app:layout_constraintBottom_toBottomOf="@+id/google_btn_sign_in"
-            app:layout_constraintEnd_toEndOf="@+id/sign_in_button"
-            app:layout_constraintStart_toEndOf="@+id/google_btn_sign_in"
-            app:layout_constraintTop_toTopOf="@+id/google_btn_sign_in" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/do_not_have_account_label"
+            android:textColor="@color/white"
+            android:textSize="22sp"
             app:layout_constraintEnd_toStartOf="@+id/sign_up_label"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"

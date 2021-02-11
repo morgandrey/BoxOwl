@@ -1,51 +1,38 @@
-package com.example.boxowl.presentation.home
+package com.example.boxowl.presentation.order
 
-import android.content.Intent
-import android.content.res.Resources.getSystem
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boxowl.R
 import com.example.boxowl.models.Order
 
 
 /**
- * Created by Andrey Morgunov on 13/11/2020.
+ * Created by Andrey Morgunov on 11/02/2021.
  */
 
-class HomeAdapter(private var dataSet: List<Order>) :
-    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HistoryOrdersAdapter(private var dataSet: List<Order>) :
+    RecyclerView.Adapter<HistoryOrdersAdapter.ViewHolder>() {
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val orderId: TextView = itemView.findViewById(R.id.order_id)
-        private val orderAddress: TextView = itemView.findViewById(R.id.order_address)
-        private val locationButton: ImageButton = itemView.findViewById(R.id.location_btn)
+        private val orderRating: TextView = itemView.findViewById(R.id.order_rating)
+        private val orderCost: TextView = itemView.findViewById(R.id.order_cost)
 
         fun bind(item: Order) {
             orderId.text =
                 itemView.resources.getString(R.string.order_item_id, item.OrderId.toString())
-            orderAddress.text = item.DeliveryAddress
-            itemView.setOnClickListener{view ->
-
-            }
-            locationButton.setOnClickListener {
-                val gmmIntentUri = Uri.parse("geo:0,0?q=${item.DeliveryAddress}, Москва")
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                mapIntent.setPackage("com.google.android.apps.maps")
-                startActivity(itemView.context, mapIntent, null)
-            }
+            orderRating.text =
+                itemView.context.getString(R.string.rating_text, item.OrderRating.toString())
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
-                    .inflate(R.layout.order_item, parent, false)
+                    .inflate(R.layout.history_order_item, parent, false)
                 return ViewHolder(view)
             }
         }
@@ -62,5 +49,4 @@ class HomeAdapter(private var dataSet: List<Order>) :
     }
 
     override fun getItemCount() = dataSet.size
-
 }

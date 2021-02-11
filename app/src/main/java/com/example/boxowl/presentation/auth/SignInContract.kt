@@ -1,6 +1,5 @@
 package com.example.boxowl.presentation.auth
 
-import android.content.SharedPreferences
 import com.example.boxowl.models.Courier
 
 

@@ -19,7 +19,13 @@
     <string name="dialog_confirmation_title">Подтвреждение</string>
     <string name="dialog_cancel">Отмена</string>
     <string name="title_settings">Настройки</string>
-    <string name="title_home">Заказы</string>
+    <string name="title_available_orders">Обзор</string>
     <string name="enter_the_pin_code_again">Введите ПИН код снова</string>
     <string name="dialog_logout_message">Вы уверены, что хотите сбросить ПИН код и авторизоваться по номеру телефона?</string>
+    <string name="title_active_orders">Активные</string>
+    <string name="user_rating_hint">Рейтинг</string>
+    <string name="change_data_button">Изменить данные</string>
+    <string name="order_item_id">Заказ №%s</string>
+    <string name="cost_text">Награда: %s</string>
+    <string name="rating_text">Рейтинг: %s</string>
 </resources>

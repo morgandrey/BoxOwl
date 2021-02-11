@@ -75,16 +75,33 @@
                     android:hint="@string/user_phone_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/phone_text"
+                app:layout_constraintStart_toStartOf="@+id/phone_text"
+                app:layout_constraintTop_toBottomOf="@+id/phone_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/rating_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:hint="@string/user_rating_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/change_user_data_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="Изменить"
+                android:text="@string/change_data_button"
                 app:layout_constraintEnd_toEndOf="@+id/phone_text"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="@+id/phone_text"
-                app:layout_constraintTop_toBottomOf="@+id/phone_text" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
             <ImageButton
                 android:id="@+id/change_user_image_btn"

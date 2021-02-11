@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.boxowl.databinding.ActivityMainBinding
-import com.example.boxowl.ui.order.active.HomeFragment
-import com.example.boxowl.ui.order.history.OrderHistoryFragment
+import com.example.boxowl.ui.order.active.ActiveOrdersFragment
+import com.example.boxowl.ui.order.available.AvailableOrdersFragment
+import com.example.boxowl.ui.order.details.OrderDetailsFragment
+import com.example.boxowl.ui.order.history.HistoryOrdersFragment
 import com.example.boxowl.ui.profile.ProfileFragment
 import com.example.boxowl.ui.settings.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,10 +18,12 @@ import com.wada811.viewbinding.viewBinding
 
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
-    HomeFragment.OnHomeFragmentInteractionListener,
-    OrderHistoryFragment.OnHistoryFragmentInteractionListener,
+    AvailableOrdersFragment.OnAvailableOrdersFragmentInteractionListener,
+    ActiveOrdersFragment.OnActiveOrdersFragmentInteractionListener,
+    HistoryOrdersFragment.OnHistoryFragmentInteractionListener,
     ProfileFragment.OnProfileFragmentInteractionListener,
-    SettingsFragment.OnSettingsFragmentInteractionListener {
+    SettingsFragment.OnSettingsFragmentInteractionListener,
+    OrderDetailsFragment.OnOrderDetailsFragmentInteractionListener {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private val binding: ActivityMainBinding by viewBinding()
@@ -50,21 +54,30 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             bottomNavigation.visibility = View.VISIBLE
 
             when (menuId) {
-                R.id.navigation_home -> bottomNavigation.menu.getItem(0).isChecked = true
-                R.id.navigation_order_history -> bottomNavigation.menu.getItem(1).isChecked = true
-                R.id.navigation_profile -> bottomNavigation.menu.getItem(2).isChecked = true
-                R.id.navigation_settings -> bottomNavigation.menu.getItem(3).isChecked = true
+                R.id.navigation_available_orders -> bottomNavigation.menu.getItem(0).isChecked = true
+                R.id.navigation_active_orders -> bottomNavigation.menu.getItem(1).isChecked = true
+                R.id.navigation_order_history -> bottomNavigation.menu.getItem(2).isChecked = true
+                R.id.navigation_profile -> bottomNavigation.menu.getItem(3).isChecked = true
+                R.id.navigation_settings -> bottomNavigation.menu.getItem(4).isChecked = true
             }
 
         } else
             bottomNavigation.visibility = View.GONE
     }
 
+    override fun setBottomNavigationVisibility(show: Boolean) {
+        binding.bottomNavigationView.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_home -> {
-                    navController.navigate(R.id.homeFragment)
+                R.id.navigation_available_orders -> {
+                    navController.navigate(R.id.availableOrdersFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_active_orders -> {
+                    navController.navigate(R.id.activeOrdersFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_order_history -> {

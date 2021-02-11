@@ -92,6 +92,7 @@ class PinLockFragment : Fragment(R.layout.fragment_pin_lock) {
                 pinCodeTwo = pin
                 if (pinCodeOne != pinCodeTwo) {
                     showToast(requireContext(), getString(R.string.pin_codes_do_not_match))
+                    binding.pinCode.resetPinLockView()
                 } else {
                     with(sharedPref.edit()) {
                         putString("CourierPinCode", pinCodeOne)

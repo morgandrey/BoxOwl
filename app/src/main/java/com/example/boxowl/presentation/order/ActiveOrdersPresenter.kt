@@ -1,4 +1,4 @@
-package com.example.boxowl.presentation.home
+package com.example.boxowl.presentation.order
 
 import com.example.boxowl.remote.OrderService
 import com.example.boxowl.remote.Service
@@ -9,18 +9,18 @@ import io.reactivex.schedulers.Schedulers
 
 
 /**
- * Created by Andrey Morgunov on 13/11/2020.
+ * Created by Andrey Morgunov on 10/02/2021.
  */
 
-class HomePresenter(private val view: HomeContract.View) : HomeContract.Presenter {
+class ActiveOrdersPresenter(private val view: ActiveOrdersContract.View) : ActiveOrdersContract.Presenter {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var orderService: OrderService
 
-    override fun loadOrders() {
+    override fun loadActiveOrders(courierId: Long) {
         orderService = Service.orderService
         compositeDisposable.add(
-            orderService.getOrders()
+            orderService.getActiveOrders(courierId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -40,5 +40,4 @@ class HomePresenter(private val view: HomeContract.View) : HomeContract.Presente
     fun onDestroy() {
         compositeDisposable.clear()
     }
-
 }

@@ -121,8 +121,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.changeUserDataBtn.isEnabled =
-                    !binding.firstNameEditText.text.toString().isBlank()
-                            && !binding.secondNameEditText.text.toString().isBlank()
+                    binding.firstNameEditText.text.toString().isNotBlank()
+                            && binding.secondNameEditText.text.toString().isNotBlank()
                             && binding.phoneEditText.text.toString().isPhone()
             }
 
@@ -181,6 +181,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         binding.firstNameEditText.setText(courier.CourierName)
         binding.secondNameEditText.setText(courier.CourierSurname)
         binding.phoneEditText.setText(courier.CourierPhone)
+        binding.ratingTextView.setText(courier.CourierRating.toString())
     }
 
     override fun onError(error: String) {

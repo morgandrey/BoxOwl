@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_available_orders"
+        android:enabled="true"
+        android:icon="@drawable/ic_available_orders_24"
+        android:title="@string/title_available_orders" />
+    <item
+        android:id="@+id/navigation_active_orders"
         android:enabled="true"
         android:icon="@drawable/ic_active_orders_24"
-        android:title="@string/title_home" />
+        android:title="@string/title_active_orders" />
 
     <item
         android:id="@+id/navigation_order_history"

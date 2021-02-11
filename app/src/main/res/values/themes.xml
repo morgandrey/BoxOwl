@@ -15,7 +15,7 @@
     </style>
 
     <style name="Theme.AuthScreen" parent="Theme.FootDelivery2">
-        <item name="android:windowBackground">@drawable/auth_bg</item>
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
     <style name="Theme.FootDelivery2" parent="Theme.AppCompat.Light.NoActionBar">
