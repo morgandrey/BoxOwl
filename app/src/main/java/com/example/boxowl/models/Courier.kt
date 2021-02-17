@@ -12,5 +12,6 @@ data class Courier(
     var CourierPhone: String = "",
     var CourierPassword: String? = null,
     var CourierSalt: String? = null,
-    var CourierRating: Long = 0
+    var CourierRating: Long = 0,
+    var CourierMoney: Double = 0.0
 )

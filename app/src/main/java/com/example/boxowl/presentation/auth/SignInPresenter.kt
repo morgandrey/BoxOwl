@@ -1,11 +1,9 @@
 package com.example.boxowl.presentation.auth
 
-import android.content.SharedPreferences
 import com.example.boxowl.models.Courier
 import com.example.boxowl.remote.AuthService
 import com.example.boxowl.remote.Service
 import com.example.boxowl.utils.showAPIErrors
-import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

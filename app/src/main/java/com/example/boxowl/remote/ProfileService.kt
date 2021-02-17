@@ -4,6 +4,7 @@ import com.example.boxowl.models.Courier
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
@@ -14,4 +15,7 @@ import retrofit2.http.Path
 interface ProfileService {
     @PUT("api/couriers/{id}")
     fun updateUserProfile(@Path("id") id: Long, @Body user: Courier): Observable<Response<Courier>>
+
+    @GET("api/couriers/{id}")
+    fun getCourier(@Path("id") courierId: Long): Observable<Response<Courier>>
 }

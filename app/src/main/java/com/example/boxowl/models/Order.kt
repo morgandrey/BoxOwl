@@ -18,5 +18,6 @@ data class Order (
     var OrderDescription: String = "",
     var OrderStatusId: Long = 0,
     var OrderRating: Long = 0,
+    var CourierReward: Double = 0.0,
     var Products: List<Product>? = null
 ) : Serializable

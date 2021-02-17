@@ -24,6 +24,7 @@ import com.example.boxowl.presentation.profile.ProfileContract
 import com.example.boxowl.presentation.profile.ProfilePresenter
 import com.example.boxowl.ui.extension.onClick
 import com.example.boxowl.utils.*
+import com.google.gson.Gson
 import com.wada811.viewbinding.viewBinding
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
@@ -51,12 +52,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         profilePresenter = ProfilePresenter(this)
         loadingDialog = loadingSpotsDialog(requireContext())
 
-        loadUserData(CurrentCourier.courier)
+        // TODO переделать постоянное обращение к серверу
+        profilePresenter.getCourier(CurrentCourier.courier.CourierId)
 
         with(binding) {
             changeUserDataBtn.onClick {
                 showLoadingDialog(loadingDialog)
-                profilePresenter.updateUserData(changedUser())
+                profilePresenter.updateCourierData(changedUser())
             }
             changeUserImageBtn.onClick { getImageFromGallery() }
             logOutBtn.onClick { logOut() }
@@ -128,7 +130,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
 
             override fun afterTextChanged(s: Editable?) {}
         }
-
         with(binding) {
             firstNameEditText.addTextChangedListener(changeProfileTextWatcher)
             secondNameEditText.addTextChangedListener(changeProfileTextWatcher)
@@ -151,7 +152,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         if (context is OnProfileFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(requireContext().toString() + " must implement OnProfileFragmentInteractionListener")
+            throw RuntimeException(requireContext().toString())
         }
     }
 
@@ -161,7 +162,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         listener.setToolbarTitle(resources.getString(R.string.title_profile))
     }
 
-    override fun loadUserData(courier: Courier) {
+    override fun onLoadSuccess(courier: Courier) {
         val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
         val watcher: FormatWatcher = MaskFormatWatcher(mask)
         watcher.installOn(binding.phoneEditText)
@@ -182,6 +183,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         binding.secondNameEditText.setText(courier.CourierSurname)
         binding.phoneEditText.setText(courier.CourierPhone)
         binding.ratingTextView.setText(courier.CourierRating.toString())
+        binding.moneyTextView.setText(courier.CourierMoney.toString())
+
+        saveCourierInSharedPrefs(courier)
     }
 
     override fun onError(error: String) {
@@ -189,9 +193,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         showToast(requireContext(), error)
     }
 
-    override fun onSuccess() {
+    override fun onUpdateSuccess() { // TODO Добавление обновленного курьера в shared prefs
         dismissLoadingDialog(loadingDialog)
         showToast(requireContext(), "Данные изменены")
+    }
+
+    private fun saveCourierInSharedPrefs(courier: Courier) {
+        val sharedPref = requireActivity().getSharedPreferences("COURIER", MODE_PRIVATE)
+        val gson = Gson()
+        val json = gson.toJson(courier)
+        with(sharedPref.edit()) {
+            putString("CourierObject", json)
+            apply()
+        }
     }
 
     /*override fun onResume() {

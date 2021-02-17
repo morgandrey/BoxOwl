@@ -12,7 +12,7 @@
         android:id="@+id/order_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/order_cost"
+        android:layout_alignBottom="@+id/courier_reward"
         android:layout_marginBottom="12dp"
         android:text="@string/order_item_id"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
         android:text="@string/rating_text" />
 
     <TextView
-        android:id="@+id/order_cost"
+        android:id="@+id/courier_reward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_rating"
@@ -38,6 +38,6 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="0dp"
-        android:text="@string/cost_text" />
+        android:text="@string/courier_reward_text" />
 
 </RelativeLayout>

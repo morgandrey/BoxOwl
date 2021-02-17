@@ -12,7 +12,9 @@ import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentActiveOrdersBinding
 import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.models.Order
-import com.example.boxowl.presentation.order.*
+import com.example.boxowl.presentation.order.active.ActiveOrdersAdapter
+import com.example.boxowl.presentation.order.active.ActiveOrdersContract
+import com.example.boxowl.presentation.order.active.ActiveOrdersPresenter
 import com.example.boxowl.utils.showToast
 import com.wada811.viewbinding.viewBinding
 

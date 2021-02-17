@@ -8,12 +8,13 @@ import com.example.boxowl.models.Courier
 
 interface ProfileContract {
     interface View {
-        fun loadUserData(courier: Courier)
+        fun onLoadSuccess(courier: Courier)
         fun onError(error: String)
-        fun onSuccess()
+        fun onUpdateSuccess()
     }
 
     interface Presenter {
-        fun updateUserData(user: Courier)
+        fun updateCourierData(courier: Courier)
+        fun getCourier(courierId: Long)
     }
 }

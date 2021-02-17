@@ -1,4 +1,4 @@
-package com.example.boxowl.presentation.order
+package com.example.boxowl.presentation.order.available
 
 import android.content.Intent
 import android.net.Uri
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boxowl.R
@@ -16,17 +16,17 @@ import com.example.boxowl.models.Order
 
 
 /**
- * Created by Andrey Morgunov on 10/02/2021.
+ * Created by Andrey Morgunov on 13/11/2020.
  */
 
-class ActiveOrdersAdapter(private var dataSet: List<Order>) :
-    RecyclerView.Adapter<ActiveOrdersAdapter.ViewHolder>() {
+class AvailableOrdersAdapter(private var dataSet: List<Order>) :
+    RecyclerView.Adapter<AvailableOrdersAdapter.ViewHolder>() {
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val orderId: TextView = itemView.findViewById(R.id.order_id)
         private val orderAddress: TextView = itemView.findViewById(R.id.order_address)
         private val orderRating: TextView = itemView.findViewById(R.id.order_rating)
-        private val orderCost: TextView = itemView.findViewById(R.id.order_cost)
+        private val courierReward: TextView = itemView.findViewById(R.id.courier_reward)
         private val locationButton: ImageButton = itemView.findViewById(R.id.location_btn)
 
         fun bind(item: Order) {
@@ -35,6 +35,11 @@ class ActiveOrdersAdapter(private var dataSet: List<Order>) :
             orderAddress.text = item.DeliveryAddress
             orderRating.text =
                 itemView.context.getString(R.string.rating_text, item.OrderRating.toString())
+            courierReward.text =
+                itemView.context.getString(
+                    R.string.courier_reward_text,
+                    item.CourierReward.toString()
+                )
             itemView.setOnClickListener { view ->
                 val bundle = Bundle()
                 bundle.putSerializable("order", item)
@@ -46,7 +51,7 @@ class ActiveOrdersAdapter(private var dataSet: List<Order>) :
                 val gmmIntentUri = Uri.parse("geo:0,0?q=${item.DeliveryAddress}, Москва")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
-                ContextCompat.startActivity(itemView.context, mapIntent, null)
+                startActivity(itemView.context, mapIntent, null)
             }
         }
 

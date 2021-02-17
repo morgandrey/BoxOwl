@@ -1,19 +1,19 @@
-package com.example.boxowl.presentation.order
+package com.example.boxowl.presentation.order.available
 
 import com.example.boxowl.models.Order
 
 
 /**
- * Created by Andrey Morgunov on 11/02/2021.
+ * Created by Andrey Morgunov on 13/11/2020.
  */
 
-interface HistoryOrdersContract {
+interface AvailableOrdersContract {
     interface View {
         fun onSuccess(dataset: List<Order>)
         fun onError(error: String)
     }
 
     interface Presenter {
-        fun loadHistoryOrders(courierId: Long)
+        fun loadOrders(courierId: Long)
     }
 }

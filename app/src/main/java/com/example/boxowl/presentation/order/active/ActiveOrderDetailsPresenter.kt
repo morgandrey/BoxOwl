@@ -1,5 +1,6 @@
-package com.example.boxowl.presentation.order
+package com.example.boxowl.presentation.order.active
 
+import com.example.boxowl.models.Order
 import com.example.boxowl.remote.OrderService
 import com.example.boxowl.remote.Service
 import com.example.boxowl.utils.showAPIErrors
@@ -9,24 +10,25 @@ import io.reactivex.schedulers.Schedulers
 
 
 /**
- * Created by Andrey Morgunov on 13/11/2020.
+ * Created by Andrey Morgunov on 15/02/2021.
  */
 
-class AvailableOrdersPresenter(private val view: AvailableOrdersContract.View) : AvailableOrdersContract.Presenter {
+class ActiveOrderDetailsPresenter(private val view: ActiveOrderDetailsContract.View) :
+    ActiveOrderDetailsContract.Presenter {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var orderService: OrderService
 
-    override fun loadOrders() {
+    override fun completeOrder(order: Order) {
         orderService = Service.orderService
         compositeDisposable.add(
-            orderService.getOrders()
+            orderService.completeOrder(order)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {response ->
+                    { response ->
                         if (response.code() == 200) {
-                            view.onSuccess(response.body()!!)
+                            view.onSuccess()
                         } else {
                             view.onError(response.message())
                         }
@@ -35,6 +37,10 @@ class AvailableOrdersPresenter(private val view: AvailableOrdersContract.View) :
                         view.onError(showAPIErrors(it))
                     })
         )
+    }
+
+    override fun cancelOrder(order: Order) {
+        TODO("Not yet implemented")
     }
 
     fun onDestroy() {

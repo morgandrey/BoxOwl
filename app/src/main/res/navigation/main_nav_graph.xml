@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_available_orders">
         <action
             android:id="@+id/action_homeFragment_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment"
+            app:destination="@id/availableOrderDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/orderDetailsFragment"
-        android:name="com.example.boxowl.ui.order.details.OrderDetailsFragment"
+        android:id="@+id/availableOrderDetailsFragment"
+        android:name="com.example.boxowl.ui.order.available.AvailableOrderDetailsFragment"
         android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" />
+        tools:layout="@layout/fragment_available_order_details" />
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.example.boxowl.ui.order.history.HistoryOrdersFragment"
@@ -42,5 +42,18 @@
         android:id="@+id/activeOrdersFragment"
         android:name="com.example.boxowl.ui.order.active.ActiveOrdersFragment"
         android:label="fragment_active_orders"
-        tools:layout="@layout/fragment_active_orders" />
+        tools:layout="@layout/fragment_active_orders" >
+        <action
+            android:id="@+id/action_activeOrdersFragment_to_activeOrderDetailsFragment"
+            app:destination="@id/activeOrderDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/activeOrderDetailsFragment"
+        android:name="com.example.boxowl.ui.order.active.ActiveOrderDetailsFragment"
+        android:label="fragment_active_order_details"
+        tools:layout="@layout/fragment_active_order_details" />
 </navigation>

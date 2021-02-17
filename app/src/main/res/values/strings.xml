@@ -26,9 +26,13 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok" translatable="false">OK</string>
     <string name="title_settings">Settings</string>
-    <string name="order_item_id">Order №%s</string>
+    <string name="order_item_id">Order № %s</string>
     <string name="user_rating_hint">Rating</string>
     <string name="change_data_button">Change data</string>
-    <string name="cost_text">Cost: %s</string>
+    <string name="courier_reward_text">Reward: %s</string>
     <string name="rating_text">Rating: %s</string>
+    <string name="complete_button_text">Complete</string>
+    <string name="cancel_the_order_button_text">Cancel the order</string>
+    <string name="user_money_hint">Money</string>
+    <string name="order_details">Order details № %s</string>
 </resources>

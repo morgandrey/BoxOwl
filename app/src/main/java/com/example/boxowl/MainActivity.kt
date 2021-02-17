@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.boxowl.databinding.ActivityMainBinding
+import com.example.boxowl.ui.order.active.ActiveOrderDetailsFragment
 import com.example.boxowl.ui.order.active.ActiveOrdersFragment
 import com.example.boxowl.ui.order.available.AvailableOrdersFragment
-import com.example.boxowl.ui.order.details.OrderDetailsFragment
+import com.example.boxowl.ui.order.available.AvailableOrderDetailsFragment
 import com.example.boxowl.ui.order.history.HistoryOrdersFragment
 import com.example.boxowl.ui.profile.ProfileFragment
 import com.example.boxowl.ui.settings.SettingsFragment
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     HistoryOrdersFragment.OnHistoryFragmentInteractionListener,
     ProfileFragment.OnProfileFragmentInteractionListener,
     SettingsFragment.OnSettingsFragmentInteractionListener,
-    OrderDetailsFragment.OnOrderDetailsFragmentInteractionListener {
+    AvailableOrderDetailsFragment.OnAvailableOrderDetailsFragmentInteractionListener,
+    ActiveOrderDetailsFragment.OnActiveOrderDetailsFragmentInteractionListener {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private val binding: ActivityMainBinding by viewBinding()

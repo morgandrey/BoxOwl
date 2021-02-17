@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.order.details.OrderDetailsFragment">
-
+    tools:context=".ui.order.available.AvailableOrderDetailsFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -22,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Tel"
+        android:text="@string/user_phone_hint"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -110,11 +109,11 @@
         tools:text="Привезти к 7 вечера" />
 
     <TextView
-        android:id="@+id/cost_text_view"
+        android:id="@+id/courier_reward_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/cost_text"
+        android:text="@string/courier_reward_text"
         app:layout_constraintEnd_toEndOf="@+id/order_description_text_view"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/products_recycler_view"
@@ -126,18 +125,30 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/rating_text"
-        app:layout_constraintEnd_toEndOf="@+id/cost_text_view"
-        app:layout_constraintStart_toStartOf="@+id/cost_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/cost_text_view" />
+        app:layout_constraintEnd_toEndOf="@+id/courier_reward_text_view"
+        app:layout_constraintStart_toStartOf="@+id/courier_reward_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/courier_reward_text_view" />
 
     <Button
-        android:id="@+id/take_order_btn"
+        android:id="@+id/complete_order_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Take order"
-        app:layout_constraintEnd_toEndOf="@+id/order_description_text_view"
+        android:text="@string/complete_button_text"
+        app:layout_constraintEnd_toStartOf="@+id/cancel_order_button"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/products_recycler_view"
         app:layout_constraintTop_toBottomOf="@+id/rating_tv" />
+
+    <Button
+        android:id="@+id/cancel_order_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_the_order_button_text"
+        app:layout_constraintBottom_toBottomOf="@+id/complete_order_button"
+        app:layout_constraintEnd_toEndOf="@+id/order_description_text_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/complete_order_button"
+        app:layout_constraintTop_toTopOf="@+id/complete_order_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

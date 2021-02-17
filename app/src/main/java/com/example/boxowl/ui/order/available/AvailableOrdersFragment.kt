@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentAvailableOrdersBinding
+import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.models.Order
-import com.example.boxowl.presentation.order.AvailableOrdersAdapter
-import com.example.boxowl.presentation.order.AvailableOrdersContract
-import com.example.boxowl.presentation.order.AvailableOrdersPresenter
+import com.example.boxowl.presentation.order.available.AvailableOrdersAdapter
+import com.example.boxowl.presentation.order.available.AvailableOrdersContract
+import com.example.boxowl.presentation.order.available.AvailableOrdersPresenter
 import com.example.boxowl.utils.showToast
 import com.wada811.viewbinding.viewBinding
 
@@ -22,7 +23,8 @@ import com.wada811.viewbinding.viewBinding
  * Created by Andrey Morgunov on 27/10/2020.
  */
 
-class AvailableOrdersFragment : Fragment(R.layout.fragment_available_orders), AvailableOrdersContract.View {
+class AvailableOrdersFragment : Fragment(R.layout.fragment_available_orders),
+    AvailableOrdersContract.View {
 
     interface OnAvailableOrdersFragmentInteractionListener : FragmentInteractionListener
 
@@ -39,7 +41,7 @@ class AvailableOrdersFragment : Fragment(R.layout.fragment_available_orders), Av
         availableOrdersPresenter = AvailableOrdersPresenter(this)
         binding.orderRecyclerView.visibility = View.GONE
         binding.orderProgressBar.visibility = View.VISIBLE
-        availableOrdersPresenter.loadOrders()
+        availableOrdersPresenter.loadOrders(CurrentCourier.courier.CourierId)
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(
@@ -60,7 +62,7 @@ class AvailableOrdersFragment : Fragment(R.layout.fragment_available_orders), Av
         if (context is OnAvailableOrdersFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(requireContext().toString() + " must implement OnAvailableOrdersFragmentInteractionListener")
+            throw RuntimeException(requireContext().toString())
         }
     }
 

@@ -25,7 +25,11 @@
     <string name="title_active_orders">Активные</string>
     <string name="user_rating_hint">Рейтинг</string>
     <string name="change_data_button">Изменить данные</string>
-    <string name="order_item_id">Заказ №%s</string>
-    <string name="cost_text">Награда: %s</string>
+    <string name="order_item_id">Заказ № %s</string>
     <string name="rating_text">Рейтинг: %s</string>
+    <string name="courier_reward_text">Награда: %s</string>
+    <string name="complete_button_text">Завершить</string>
+    <string name="cancel_the_order_button_text">Отменить</string>
+    <string name="user_money_hint">Деньги</string>
+    <string name="order_details">Детали заказа № %s</string>
 </resources>

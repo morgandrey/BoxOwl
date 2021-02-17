@@ -15,7 +15,4 @@ interface AuthService {
 
     @POST("api/couriers/login")
     fun loginCourier(@Body courier: Courier): Observable<Response<Courier>>
-
-    @GET("api/couriers/{id}")
-    fun getCourier(@Path("id") courierId: Long): Observable<Courier>
 }

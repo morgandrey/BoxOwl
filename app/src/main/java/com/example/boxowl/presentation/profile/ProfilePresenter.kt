@@ -17,16 +17,16 @@ class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var profileService: ProfileService
 
-    override fun updateUserData(user: Courier) {
+    override fun updateCourierData(courier: Courier) {
         profileService = Service.profileService
         compositeDisposable.add(
-                profileService.updateUserProfile(user.CourierId, user)
+                profileService.updateUserProfile(courier.CourierId, courier)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 {response ->
                                     if (response.code() == 204) {
-                                        view.onSuccess()
+                                        view.onUpdateSuccess()
                                     } else {
                                         view.onError(response.message())
                                     }
@@ -34,6 +34,26 @@ class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract
                                 {
                                     view.onError(showAPIErrors(it))
                                 })
+        )
+    }
+
+    override fun getCourier(courierId: Long) {
+        profileService = Service.profileService
+        compositeDisposable.add(
+            profileService.getCourier(courierId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {response ->
+                        if (response.code() == 200) {
+                            view.onLoadSuccess(response.body()!!)
+                        } else {
+                            view.onError(response.message())
+                        }
+                    },
+                    {
+                        view.onError(showAPIErrors(it))
+                    })
         )
     }
 

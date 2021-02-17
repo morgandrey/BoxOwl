@@ -12,10 +12,9 @@ import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentOrderHistoryBinding
 import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.models.Order
-import com.example.boxowl.presentation.order.AvailableOrdersAdapter
-import com.example.boxowl.presentation.order.HistoryOrdersAdapter
-import com.example.boxowl.presentation.order.HistoryOrdersContract
-import com.example.boxowl.presentation.order.HistoryOrdersPresenter
+import com.example.boxowl.presentation.order.history.HistoryOrdersAdapter
+import com.example.boxowl.presentation.order.history.HistoryOrdersContract
+import com.example.boxowl.presentation.order.history.HistoryOrdersPresenter
 import com.example.boxowl.utils.showToast
 import com.wada811.viewbinding.viewBinding
 

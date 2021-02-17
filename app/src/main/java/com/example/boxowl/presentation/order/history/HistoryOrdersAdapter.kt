@@ -1,4 +1,4 @@
-package com.example.boxowl.presentation.order
+package com.example.boxowl.presentation.order.history
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,13 +19,17 @@ class HistoryOrdersAdapter(private var dataSet: List<Order>) :
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val orderId: TextView = itemView.findViewById(R.id.order_id)
         private val orderRating: TextView = itemView.findViewById(R.id.order_rating)
-        private val orderCost: TextView = itemView.findViewById(R.id.order_cost)
+        private val courierReward: TextView = itemView.findViewById(R.id.courier_reward)
 
         fun bind(item: Order) {
             orderId.text =
                 itemView.resources.getString(R.string.order_item_id, item.OrderId.toString())
             orderRating.text =
                 itemView.context.getString(R.string.rating_text, item.OrderRating.toString())
+            courierReward.text = itemView.context.getString(
+                R.string.courier_reward_text,
+                item.CourierReward.toString()
+            )
         }
 
         companion object {
