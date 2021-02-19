@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="reply_entries">
+        <item>@string/english_language</item>
+        <item>@string/russian_language</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>EN</item>
+        <item>RU</item>
+    </string-array>
+</resources>

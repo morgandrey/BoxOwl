@@ -1,5 +1,6 @@
 package com.example.boxowl.utils
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
@@ -8,6 +9,7 @@ import com.example.boxowl.R
 import com.google.android.material.snackbar.Snackbar
 import dmax.dialog.SpotsDialog
 import retrofit2.HttpException
+import java.util.*
 import java.util.regex.Pattern.compile
 
 /**
@@ -61,5 +63,13 @@ fun showToast(context: Context, message: String) {
 
 fun showSnackBar(view: View, message: String) {
     Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+}
+
+@Suppress("DEPRECATION")
+fun setAppLocale(localCode: String, activity: Activity) {
+    val res = activity.resources
+    val conf = res.configuration
+    conf.setLocale(Locale(localCode.toLowerCase(Locale.ROOT)))
+    res.updateConfiguration(conf, null)
 }
 

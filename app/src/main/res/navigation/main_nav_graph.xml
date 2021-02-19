@@ -29,11 +29,6 @@
         android:label="FragmentOrderHistory"
         tools:layout="@layout/fragment_order_history" />
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.boxowl.ui.settings.SettingsFragment"
-        android:label="FragmentSettings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.boxowl.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
@@ -56,4 +51,8 @@
         android:name="com.example.boxowl.ui.order.active.ActiveOrderDetailsFragment"
         android:label="fragment_active_order_details"
         tools:layout="@layout/fragment_active_order_details" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.boxowl.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

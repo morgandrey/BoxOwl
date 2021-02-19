@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.andrognito.pinlockview.IndicatorDots
 import com.andrognito.pinlockview.PinLockListener
@@ -98,6 +97,7 @@ class PinLockFragment : Fragment(R.layout.fragment_pin_lock) {
                         putString("CourierPinCode", pinCodeOne)
                         apply()
                     }
+                    requireActivity().finish() //!
                     startActivity(Intent(activity, MainActivity::class.java))
                 }
             }

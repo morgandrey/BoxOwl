@@ -5,14 +5,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import com.example.boxowl.databinding.ActivityMainBinding
 import com.example.boxowl.ui.order.active.ActiveOrderDetailsFragment
 import com.example.boxowl.ui.order.active.ActiveOrdersFragment
-import com.example.boxowl.ui.order.available.AvailableOrdersFragment
 import com.example.boxowl.ui.order.available.AvailableOrderDetailsFragment
+import com.example.boxowl.ui.order.available.AvailableOrdersFragment
 import com.example.boxowl.ui.order.history.HistoryOrdersFragment
 import com.example.boxowl.ui.profile.ProfileFragment
 import com.example.boxowl.ui.settings.SettingsFragment
+import com.example.boxowl.utils.setAppLocale
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.wada811.viewbinding.viewBinding
@@ -41,6 +43,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         if (savedInstanceState == null) {
             bottomNavigation.menu.getItem(0).isChecked
         }
+        val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val lang = sp.getString("language_reply", "")
+        setAppLocale(lang!!, this)
     }
 
     override fun setToolbarTitle(title: String) {

@@ -32,4 +32,7 @@
     <string name="cancel_the_order_button_text">Отменить</string>
     <string name="user_money_hint">Деньги</string>
     <string name="order_details">Детали заказа № %s</string>
+    <string name="language_title">Язык</string>
+    <string name="russian_language">Русский</string>
+    <string name="english_language">Английский</string>
 </resources>
