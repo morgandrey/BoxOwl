@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentAvailableOrderDetailsBinding
 import com.example.boxowl.models.CurrentCourier
 import com.example.boxowl.models.Order
+import com.example.boxowl.presentation.order.ProductAdapter
 import com.example.boxowl.presentation.order.available.AvailableOrderDetailsContract
 import com.example.boxowl.presentation.order.available.AvailableOrderDetailsPresenter
 import com.example.boxowl.ui.extension.onClick
@@ -47,6 +49,8 @@ class AvailableOrderDetailsFragment : Fragment(R.layout.fragment_available_order
                 R.string.courier_reward_text,
                 order.CourierReward.toString()
             )
+            productsRecyclerView.layoutManager = LinearLayoutManager(activity)
+            productsRecyclerView.adapter = ProductAdapter(order.Products!!)
             takeOrderBtn.onClick {
                 order.CourierId = CurrentCourier.courier.CourierId
                 availableOrderDetailsPresenter.takeOrder(order)

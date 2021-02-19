@@ -1,21 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.FootDelivery" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+<resources>
+    <style name="Theme.AuthScreen" parent="Theme.FootDelivery2">
+        <item name="android:windowBackground">#FF5722</item>
     </style>
 
-    <style name="Theme.AuthScreen" parent="Theme.FootDelivery2">
-        <item name="android:windowBackground">@color/black</item>
+    <style name="Theme.FootDelivery" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FF5722</item>
     </style>
 
     <style name="Theme.FootDelivery2" parent="Theme.AppCompat.Light.NoActionBar">
@@ -27,4 +18,5 @@
         <item name="colorOnSecondary">@color/color_on_secondary</item>
         <item name="android:statusBarColor">@color/color_status_bar</item>
     </style>
+
 </resources>
