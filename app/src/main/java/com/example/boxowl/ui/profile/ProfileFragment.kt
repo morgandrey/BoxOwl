@@ -198,7 +198,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
     override fun onUpdateSuccess() {
         dismissLoadingDialog(loadingDialog)
         saveCourierInSharedPrefs(changedUser())
-        showToast(requireContext(), "Данные изменены")
+        showToast(requireContext(), getString(R.string.data_changed_text))
     }
 
     private fun saveCourierInSharedPrefs(courier: Courier) {

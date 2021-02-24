@@ -40,7 +40,7 @@
                     android:id="@+id/first_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_first_name_hint" />
+                    android:hint="@string/courier_first_name_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -56,7 +56,7 @@
                     android:id="@+id/second_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_second_name_hint" />
+                    android:hint="@string/courier_second_name_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +72,7 @@
                     android:id="@+id/phone_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_phone_hint" />
+                    android:hint="@string/courier_phone_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
-                    android:hint="@string/user_rating_hint" />
+                    android:hint="@string/courier_rating_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
-                    android:hint="@string/user_money_hint" />
+                    android:hint="@string/courier_money_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -115,7 +115,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_bg"
                 android:backgroundTint="@color/color_primary"
-                android:text="@string/change_data_button"
+                android:text="@string/change_data_button_text"
                 android:textSize="@dimen/text_large"
                 app:layout_constraintEnd_toEndOf="@+id/phone_text"
                 app:layout_constraintStart_toStartOf="@+id/phone_text"
@@ -138,7 +138,7 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/button_bg"
                 android:backgroundTint="@color/design_default_color_error"
-                android:text="@string/log_out_text_btn"
+                android:text="@string/log_out_button_text"
                 android:textSize="@dimen/text_large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/change_user_data_btn"

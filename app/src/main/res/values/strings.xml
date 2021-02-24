@@ -1,43 +1,57 @@
 <resources>
     <string name="app_name" translatable="false">box-owl</string>
-    <string name="sign_up_text_label">Sign up</string>
-    <string name="user_first_name_hint">Name</string>
-    <string name="user_second_name_hint">Surname</string>
-    <string name="user_phone_hint">Phone</string>
+
+    <string name="courier_first_name_hint">Name</string>
+    <string name="courier_second_name_hint">Surname</string>
+    <string name="courier_phone_hint">Phone</string>
     <string name="password_text_edit_hint">Password</string>
+    <string name="courier_rating_hint">Rating</string>
+    <string name="courier_money_hint">Money</string>
+    <string name="user_address_text">Address</string>
+    <string name="user_name_text">Client</string>
+
     <string name="confirm_password_text_edit_hint">Confirm password</string>
     <string name="have_an_account_label">Already have an account?</string>
-    <string name="sign_in_text_label">Sign in</string>
     <string name="google_text_button" translatable="false">Google</string>
     <string name="facebook_text_button" translatable="false">Facebook</string>
     <string name="do_not_have_account_label">Don\'t have an account?</string>
+
     <string name="title_available_orders">Available</string>
     <string name="title_active_orders">Active</string>
     <string name="title_profile">Profile</string>
     <string name="loading_dialog_text">Loading…</string>
-    <string name="log_out_text_btn">Logout</string>
     <string name="title_order_history">History</string>
     <string name="title_general_settings">General</string>
     <string name="create_the_pin_code">Create your PIN code</string>
     <string name="enter_the_pin_code_again">Enter the PIN code again</string>
     <string name="pin_codes_do_not_match">PIN codes do not match</string>
     <string name="wrong_pin_code">Wrong PIN code</string>
+    <string name="data_changed_text">Data changed</string>
     <string name="dialog_confirmation_title">The confirmation</string>
     <string name="dialog_logout_message">Are you sure you want to reset the access PIN code and log in with your phone number?</string>
     <string name="dialog_complete_order_message">Are you sure you want to complete the order?</string>
     <string name="dialog_cancel_order_message">Are you sure you want to cancel the order?</string>
+    <string name="order_description_text">Order description</string>
+    <string name="order_products_text">Products</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok" translatable="false">OK</string>
     <string name="title_settings">Settings</string>
+
     <string name="order_item_id">Order № %s</string>
-    <string name="user_rating_hint">Rating</string>
-    <string name="change_data_button">Change data</string>
+    <string name="order_details">Order details № %s</string>
     <string name="courier_reward_text">Reward: %s</string>
     <string name="rating_text">Rating: %s</string>
+
+    <!-- Buttons -->
     <string name="complete_button_text">Complete</string>
+    <string name="take_order_button_text">Take order</string>
     <string name="cancel_the_order_button_text">Cancel the order</string>
-    <string name="user_money_hint">Money</string>
-    <string name="order_details">Order details № %s</string>
+    <string name="sign_in_button_text">Sign in</string>
+    <string name="sign_up_button_text">Sign up</string>
+    <string name="change_data_button_text">Change data</string>
+    <string name="log_out_button_text">Logout</string>
+
+    <!-- Settings -->
     <string name="language_title">Language</string>
     <string name="russian_language">Russian</string>
     <string name="english_language">English</string>
