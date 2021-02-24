@@ -35,4 +35,7 @@
     <string name="language_title">Язык</string>
     <string name="russian_language">Русский</string>
     <string name="english_language">Английский</string>
+    <string name="dialog_complete_order_message">Вы уверены, что хотите завершить заказ?</string>
+    <string name="dialog_cancel_order_message">Вы уверены, что хотите отменить заказ?</string>
+    <string name="title_general_settings">Общие</string>
 </resources>

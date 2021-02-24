@@ -1,14 +1,20 @@
 package com.example.boxowl.ui.order.active
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.boxowl.AuthActivity
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
 import com.example.boxowl.databinding.FragmentActiveOrderDetailsBinding
 import com.example.boxowl.models.Order
+import com.example.boxowl.presentation.order.ProductAdapter
 import com.example.boxowl.presentation.order.active.ActiveOrderDetailsContract
 import com.example.boxowl.presentation.order.active.ActiveOrderDetailsPresenter
 import com.example.boxowl.ui.extension.onClick
@@ -46,10 +52,28 @@ class ActiveOrderDetailsFragment : Fragment(R.layout.fragment_active_order_detai
                 order.CourierReward.toString()
             )
             completeOrderButton.onClick {
-                activeOrderDetailsPresenter.completeOrder(order)
+                AlertDialog.Builder(activity)
+                    .setMessage(R.string.dialog_complete_order_message)
+                    .setTitle(R.string.dialog_confirmation_title)
+                    .setPositiveButton(R.string.dialog_ok) { _, _ ->
+                        activeOrderDetailsPresenter.completeOrder(order)
+                    }
+                    .setNegativeButton(R.string.dialog_cancel, null)
+                    .create()
+                    .show()
             }
+            productsRecyclerView.layoutManager = LinearLayoutManager(activity)
+            productsRecyclerView.adapter = ProductAdapter(order.Products!!)
             cancelOrderButton.onClick {
-
+                AlertDialog.Builder(activity)
+                    .setMessage(R.string.dialog_cancel_order_message)
+                    .setTitle(R.string.dialog_confirmation_title)
+                    .setPositiveButton(R.string.dialog_ok) { _, _ ->
+                        activeOrderDetailsPresenter.completeOrder(order)
+                    }
+                    .setNegativeButton(R.string.dialog_cancel, null)
+                    .create()
+                    .show()
             }
         }
     }

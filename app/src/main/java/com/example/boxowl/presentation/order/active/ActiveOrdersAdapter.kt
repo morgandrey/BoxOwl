@@ -33,13 +33,20 @@ class ActiveOrdersAdapter(private var dataSet: List<Order>) :
             orderId.text =
                 itemView.resources.getString(R.string.order_item_id, item.OrderId.toString())
             orderAddress.text = item.DeliveryAddress
+            courierReward.text = itemView.context.getString(
+                R.string.courier_reward_text,
+                item.CourierReward.toString()
+            )
             orderRating.text =
                 itemView.context.getString(R.string.rating_text, item.OrderRating.toString())
             itemView.setOnClickListener { view ->
                 val bundle = Bundle()
                 bundle.putSerializable("order", item)
                 view.findNavController()
-                    .navigate(R.id.action_activeOrdersFragment_to_activeOrderDetailsFragment, bundle)
+                    .navigate(
+                        R.id.action_activeOrdersFragment_to_activeOrderDetailsFragment,
+                        bundle
+                    )
             }
 
             locationButton.setOnClickListener {

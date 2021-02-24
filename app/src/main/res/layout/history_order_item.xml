@@ -26,7 +26,8 @@
         android:layout_marginStart="141dp"
         android:layout_marginEnd="15dp"
         android:layout_toEndOf="@+id/order_id"
-        android:text="@string/rating_text" />
+        android:text="@string/rating_text"
+        android:textAlignment="textEnd" />
 
     <TextView
         android:id="@+id/courier_reward"
@@ -38,6 +39,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="0dp"
-        android:text="@string/courier_reward_text" />
+        android:text="@string/courier_reward_text"
+        android:textAlignment="textEnd" />
 
 </RelativeLayout>

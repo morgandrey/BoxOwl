@@ -113,9 +113,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/color_primary"
                 android:text="@string/change_data_button"
+                android:textSize="@dimen/text_large"
                 app:layout_constraintEnd_toEndOf="@+id/phone_text"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="@+id/phone_text"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
@@ -134,7 +136,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/design_default_color_error"
                 android:text="@string/log_out_text_btn"
+                android:textSize="@dimen/text_large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/change_user_data_btn"
                 app:layout_constraintStart_toStartOf="@+id/change_user_data_btn"

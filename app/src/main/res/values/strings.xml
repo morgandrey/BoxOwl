@@ -17,12 +17,15 @@
     <string name="loading_dialog_text">Loading…</string>
     <string name="log_out_text_btn">Logout</string>
     <string name="title_order_history">History</string>
+    <string name="title_general_settings">General</string>
     <string name="create_the_pin_code">Create your PIN code</string>
     <string name="enter_the_pin_code_again">Enter the PIN code again</string>
     <string name="pin_codes_do_not_match">PIN codes do not match</string>
     <string name="wrong_pin_code">Wrong PIN code</string>
     <string name="dialog_confirmation_title">The confirmation</string>
     <string name="dialog_logout_message">Are you sure you want to reset the access PIN code and log in with your phone number?</string>
+    <string name="dialog_complete_order_message">Are you sure you want to complete the order?</string>
+    <string name="dialog_cancel_order_message">Are you sure you want to cancel the order?</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok" translatable="false">OK</string>
     <string name="title_settings">Settings</string>
@@ -38,5 +41,4 @@
     <string name="language_title">Language</string>
     <string name="russian_language">Russian</string>
     <string name="english_language">English</string>
-
 </resources>
