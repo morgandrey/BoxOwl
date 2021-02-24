@@ -14,6 +14,7 @@ import android.util.Base64
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.boxowl.AuthActivity
 import com.example.boxowl.R
 import com.example.boxowl.bases.FragmentInteractionListener
@@ -52,7 +53,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         profilePresenter = ProfilePresenter(this)
         loadingDialog = loadingSpotsDialog(requireContext())
 
-        // TODO переделать постоянное обращение к серверу
         profilePresenter.getCourier(CurrentCourier.courier.CourierId)
 
         with(binding) {
@@ -106,14 +106,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK && data != null) {
             val imageUri = data.data
-            binding.userImageView.setImageURI(imageUri)
             val inputStream = requireActivity().contentResolver.openInputStream(imageUri!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val scaleBm =
+                Bitmap.createScaledBitmap(
+                    BitmapFactory.decodeStream(inputStream),
+                    96,
+                    96,
+                    true
+                )
+            Glide.with(this)
+                .load(scaleBm)
+                .into(binding.userImageView)
             val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-            val byteArray = outputStream.toByteArray()
-            val encodedString: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
-            CurrentCourier.courier.CourierImage = encodedString
+            scaleBm.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            CurrentCourier.courier.CourierImage =
+                Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
         }
     }
 
@@ -170,14 +177,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         if (courier.CourierImage == null) {
             binding.userImageView.setImageResource(R.drawable.default_user_image)
         } else {
-            val imageBytes = Base64.decode(courier.CourierImage, 0)
-            binding.userImageView.setImageBitmap(
-                BitmapFactory.decodeByteArray(
-                    imageBytes,
-                    0,
-                    imageBytes.size
-                )
-            )
+            Glide.with(this)
+                .load(Base64.decode(courier.CourierImage, Base64.DEFAULT))
+                .into(binding.userImageView)
         }
         binding.firstNameEditText.setText(courier.CourierName)
         binding.secondNameEditText.setText(courier.CourierSurname)
@@ -193,8 +195,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
         showToast(requireContext(), error)
     }
 
-    override fun onUpdateSuccess() { // TODO Добавление обновленного курьера в shared prefs
+    override fun onUpdateSuccess() {
         dismissLoadingDialog(loadingDialog)
+        saveCourierInSharedPrefs(changedUser())
         showToast(requireContext(), "Данные изменены")
     }
 
@@ -207,11 +210,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), ProfileContract.Vie
             apply()
         }
     }
-
-    /*override fun onResume() {
-        Objects.requireNonNull(requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING))
-        super.onResume()
-    }*/
 
     override fun onDestroy() {
         profilePresenter.onDestroy()
